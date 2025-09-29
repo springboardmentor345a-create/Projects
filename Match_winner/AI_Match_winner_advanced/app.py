@@ -5,18 +5,17 @@ from datetime import datetime
 import numpy as np
 from collections import defaultdict
 import requests
+from bs4 import BeautifulSoup
 import os
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
     page_title="Live Football Match Predictor",
     page_icon="⚽",
-    layout="wide", # Use wide layout for a more professional feel
+    layout="wide",
 )
 
 # --- TEAM LOGOS ---
-# A dictionary to hold team logo URLs for a better visual experience
-# NEW: Added aliases (e.g., "Manchester United") to handle different naming conventions
 TEAM_LOGOS = {
     "Arsenal": "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
     "Aston Villa": "https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282023%29.svg",
@@ -48,7 +47,6 @@ TEAM_LOGOS = {
     "Wolverhampton Wanderers": "https://upload.wikimedia.org/wikipedia/en/f/fc/Wolverhampton_Wanderers.svg"
 }
 
-
 # --- ASSET LOADING ---
 @st.cache_resource
 def load_assets():
@@ -62,16 +60,18 @@ def load_assets():
         win_loss_encoders_path = os.path.join(script_dir, 'win_loss_encoders.pkl')
         draw_encoders_path = os.path.join(script_dir, 'draw_encoders.pkl')
         dataset_path = os.path.join(script_dir, 'full_feature_dataset_expanded.csv')
-        with open('win_lose_model.pkl', 'rb') as file:
+
+        # --- THE DEFINITIVE FIX: Use the full path variables ---
+        with open(win_lose_model_path, 'rb') as file:
             win_lose_model = pickle.load(file)
-        with open('draw_model.pkl', 'rb') as file:
+        with open(draw_model_path, 'rb') as file:
             draw_model = pickle.load(file)
-        with open('win_loss_encoders.pkl', 'rb') as file:
+        with open(win_loss_encoders_path, 'rb') as file:
             win_loss_encoders = pickle.load(file)
-        with open('draw_encoders.pkl', 'rb') as file:
+        with open(draw_encoders_path, 'rb') as file:
             draw_encoders = pickle.load(file)
         
-        df = pd.read_csv("full_feature_dataset_expanded.csv")
+        df = pd.read_csv(dataset_path)
         df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
         # Sort dataframe by date to easily find the latest matches
         df = df.sort_values('Date', ascending=False).reset_index(drop=True)
@@ -80,6 +80,11 @@ def load_assets():
         st.error(f"Error loading asset file: {e}. Please make sure all .pkl and the .csv dataset are in the same folder.")
         return None, None, None, None, None
 
+# --- LIVE DATA ENGINE ---
+# ... (rest of the file is unchanged, no need to copy it here) ...
+
+# ... (all the other functions and UI code are unchanged) ...
+# (The complete, unchanged code from your version follows from here)
 # --- LIVE DATA ENGINE ---
 @st.cache_data(ttl=3600) # Cache the table for 1 hour
 def fetch_live_epl_table():
@@ -311,25 +316,24 @@ if all(a is not None for a in assets):
                         center_col.markdown("<h1 style='text-align: center;'>🤝</h1>", unsafe_allow_html=True)
                         center_col.info(f"🤝 The system predicts a **DRAW**.", icon="⚖️")
 
-    else:
-        st.info('Select two teams and click "Predict Outcome" to see the AI in action.')
+else:
+    st.info('Select two teams and click "Predict Outcome" to see the AI in action.')
 
-    # --- NEW: Explanation Section ---
-    with st.expander("🔬 How does this work?"):
-        st.markdown("""
-        This prediction engine is more than just a model; it's a complete analytical pipeline that combines historical data with live, real-world information.
-        
-        **1. Live League Table:** The app scrapes the current, official Premier League table from the web. This gives the model the most accurate possible signal of a team's current standing.
-        
-        **2. True Team Form:** It calculates each team's recent form by analyzing their performance in their last few matches against *any* opponent, providing a sharp signal of current momentum.
-        
-        **3. Historical Context:** It looks at the history between the two selected teams, averaging their past Head-to-Head (H2H) stats and betting odds to establish a stable, long-term baseline.
-        
-        **4. AI Prediction:** These three distinct types of features are combined and fed into two specialized XGBoost models that work together to forecast the final outcome.
-        """)
+# --- NEW: Explanation Section ---
+with st.expander("🔬 How does this work?"):
+    st.markdown("""
+    This prediction engine is more than just a model; it's a complete analytical pipeline that combines historical data with live, real-world information.
+    
+    **1. Live League Table:** The app scrapes the current, official Premier League table from the web. This gives the model the most accurate possible signal of a team's current standing.
+    
+    **2. True Team Form:** It calculates each team's recent form by analyzing their performance in their last few matches against *any* opponent, providing a sharp signal of current momentum.
+    
+    **3. Historical Context:** It looks at the history between the two selected teams, averaging their past Head-to-Head (H2H) stats and betting odds to establish a stable, long-term baseline.
+    
+    **4. AI Prediction:** These three distinct types of features are combined and fed into two specialized XGBoost models that work together to forecast the final outcome.
+    """)
 
-    # --- FOOTER ---
-    st.markdown("---")
-    st.markdown("Developed with ❤️ by AKN. This is a portfolio project demonstrating advanced AI engineering concepts for Infosys Inernship.")
-
+# --- FOOTER ---
+st.markdown("---")
+st.markdown("Developed with ❤️ by AKN. This is a portfolio project demonstrating advanced AI engineering concepts for Infosys Inernship.")
 
