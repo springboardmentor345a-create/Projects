@@ -5,6 +5,7 @@ from datetime import datetime
 import numpy as np
 from collections import defaultdict
 import requests
+import os
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -53,6 +54,14 @@ TEAM_LOGOS = {
 def load_assets():
     """Load all models, encoders, and the main dataset from disk."""
     try:
+        script_dir = os.path.dirname(__file__)
+
+        # Construct the full, absolute path to each asset file
+        win_lose_model_path = os.path.join(script_dir, 'win_lose_model.pkl')
+        draw_model_path = os.path.join(script_dir, 'draw_model.pkl')
+        win_loss_encoders_path = os.path.join(script_dir, 'win_loss_encoders.pkl')
+        draw_encoders_path = os.path.join(script_dir, 'draw_encoders.pkl')
+        dataset_path = os.path.join(script_dir, 'full_feature_dataset_expanded.csv')
         with open('win_lose_model.pkl', 'rb') as file:
             win_lose_model = pickle.load(file)
         with open('draw_model.pkl', 'rb') as file:
