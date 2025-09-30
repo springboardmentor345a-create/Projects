@@ -1,0 +1,14 @@
+HomeTeam
+AwayTeam
+HomeShots
+AwayShots
+HomeShotsOnTarget
+AwayShotsOnTarget
+HomeCorners
+AwayCorners
+HomeFouls
+AwayFouls
+HomeYellowCards
+AwayYellowCards
+HomeRedCards
+AwayRedCards
