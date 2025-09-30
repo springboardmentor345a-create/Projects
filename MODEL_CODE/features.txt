@@ -1,0 +1,13 @@
+Position
+Age
+Appearances
+Minutes_Played
+Goals_prev_season
+Assists
+Goals_per_90
+Big_6_Club_Feature
+Club_League_Rank
+Club_Total_Goals
+League_Goals_per_Match
+Games_in_Season
+Goals_last_3_seasons_avg

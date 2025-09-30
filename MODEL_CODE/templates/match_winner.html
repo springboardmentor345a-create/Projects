@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Winner Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="back-link">← Back to Home</a>
+      <h1>⚔️ Match Winner Prediction</h1>
+    </div>
+    
+    <div class="container">
+      {% if prediction %}
+        <div class="result">
+          <div class="result-label">Predicted Match Result</div>
+          <div class="result-value">{{ prediction }}</div>
+        </div>
+      {% endif %}
+      
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+      
+      <div class="prediction-form">
+        <form method="post">
+          <h3>Team Selection</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="HomeTeam">Home Team</label>
+              <select name="HomeTeam" id="HomeTeam" required>
+                <option value="">Select Home Team</option>
+                {% for team in teams %}
+                  <option value="{{ team }}" {% if form_data.get('HomeTeam') == team %}selected{% endif %}>{{ team }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="AwayTeam">Away Team</label>
+              <select name="AwayTeam" id="AwayTeam" required>
+                <option value="">Select Away Team</option>
+                {% for team in teams %}
+                  <option value="{{ team }}" {% if form_data.get('AwayTeam') == team %}selected{% endif %}>{{ team }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          
+          <h3>Home Team Statistics</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="HomeShots">Home Shots</label>
+              <input type="number" name="HomeShots" id="HomeShots" placeholder="Total shots" value="{{ form_data.get('HomeShots', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="HomeShotsOnTarget">Home Shots On Target</label>
+              <input type="number" name="HomeShotsOnTarget" id="HomeShotsOnTarget" placeholder="Shots on target" value="{{ form_data.get('HomeShotsOnTarget', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="HomeCorners">Home Corners</label>
+              <input type="number" name="HomeCorners" id="HomeCorners" placeholder="Corner kicks" value="{{ form_data.get('HomeCorners', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="HomeFouls">Home Fouls</label>
+              <input type="number" name="HomeFouls" id="HomeFouls" placeholder="Fouls committed" value="{{ form_data.get('HomeFouls', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="HomeYellowCards">Home Yellow Cards</label>
+              <input type="number" name="HomeYellowCards" id="HomeYellowCards" placeholder="Yellow cards" value="{{ form_data.get('HomeYellowCards', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="HomeRedCards">Home Red Cards</label>
+              <input type="number" name="HomeRedCards" id="HomeRedCards" placeholder="Red cards" value="{{ form_data.get('HomeRedCards', '') }}" required>
+            </div>
+          </div>
+          
+          <h3>Away Team Statistics</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="AwayShots">Away Shots</label>
+              <input type="number" name="AwayShots" id="AwayShots" placeholder="Total shots" value="{{ form_data.get('AwayShots', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="AwayShotsOnTarget">Away Shots On Target</label>
+              <input type="number" name="AwayShotsOnTarget" id="AwayShotsOnTarget" placeholder="Shots on target" value="{{ form_data.get('AwayShotsOnTarget', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="AwayCorners">Away Corners</label>
+              <input type="number" name="AwayCorners" id="AwayCorners" placeholder="Corner kicks" value="{{ form_data.get('AwayCorners', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="AwayFouls">Away Fouls</label>
+              <input type="number" name="AwayFouls" id="AwayFouls" placeholder="Fouls committed" value="{{ form_data.get('AwayFouls', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="AwayYellowCards">Away Yellow Cards</label>
+              <input type="number" name="AwayYellowCards" id="AwayYellowCards" placeholder="Yellow cards" value="{{ form_data.get('AwayYellowCards', '') }}" required>
+            </div>
+            <div class="form-group">
+              <label for="AwayRedCards">Away Red Cards</label>
+              <input type="number" name="AwayRedCards" id="AwayRedCards" placeholder="Red cards" value="{{ form_data.get('AwayRedCards', '') }}" required>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Predict Winner</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
