@@ -45,3 +45,4 @@ pip install -r requirements.txt
 Run the application:
 
 streamlit run app.py
+or run the appliocation via this link: https://akn-football-predictor.streamlit.app/
