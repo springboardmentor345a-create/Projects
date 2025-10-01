@@ -2,4 +2,6 @@
 
 You can access the deployed model here:  
 👉 <a href="https://epl-prediction.onrender.com/" target="_blank">DEPLOYED MODEL LINK</a>
+or URL:
+👉 https://epl-prediction.onrender.com/
 
