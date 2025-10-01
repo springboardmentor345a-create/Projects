@@ -1,5 +1,10 @@
 # EPL Prediction App
 
+## STREAMLIT APP DEPLOYED LINK
+```bash
+https://eplapp-kvwmq9fxwayc47idymcaub.streamlit.app/
+```
+
 This Streamlit app allows you to predict:  
 
 1. **Top Goal Scorer** – Predicts the number of goals a player is likely to score.  

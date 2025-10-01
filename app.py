@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
+import os
 
 try:
     goal_model = joblib.load(r"Top_Goal_Scorer/linear_regression_model.pkl")
@@ -36,28 +37,30 @@ teams = [
     "Arsenal", "Aston Villa","Bournemouth","Brentford", "Brighton", "Burnley","Chelsea","Crystal Palace","Everton","Fulham","Leeds","Liverpool","Luton", "Man City", "Man United","Newcastle","Nott'm For","Sunderland","Tottenham","West Ham","Wolves"
 ]
 
+LOGO_DIR = "Logos"  # folder inside your repo
+
 team_logos = {
-    "Arsenal": r"Logos\Arsenal.png",
-    "Aston Villa": r"Logos\Aston Villa.png",
-    "Bournemouth": r"Logos\Bournemouth.png",
-    "Brentford": r"Logos\Brentford.png",
-    "Brighton": r"Logos\Brentford.png",
-    "Burnley": r"Logos\Burnley.png",
-    "Chelsea": r"Logos\Chelsea.png",
-    "Crystal Palace": r"Logos\Crystal Palace.png",
-    "Everton": r"Logos\Everton.png",
-    "Fulham": r"Logos\Fulham.png",
-    "Leeds": r"Logos\Leeds.png",
-    "Liverpool": r"Logos\Liverpool.png",
-    "Luton": r"Logos\Luton.png",
-    "Man City": r"Logos\Man City.png",
-    "Man United": r"Logos\Man United.png",
-    "Newcastle": r"Logos\Newcastle.png",
-    "Nott'm For": r"Logos\Nottingham Forest.png",
-    "Sunderland":r"Logos\Sunderland.png",
-    "Tottenham": r"Logos\Tottenham.png",
-    "West Ham": r"Logos\West Ham.png",
-    "Wolves": r"Logos\Wolves.png"
+    "Arsenal": os.path.join(LOGO_DIR, "Arsenal.png"),
+    "Aston Villa": os.path.join(LOGO_DIR, "Aston Villa.png"),
+    "Bournemouth": os.path.join(LOGO_DIR, "Bournemouth.png"),
+    "Brentford": os.path.join(LOGO_DIR, "Brentford.png"),
+    "Brighton": os.path.join(LOGO_DIR, "Brighton.png"),
+    "Burnley": os.path.join(LOGO_DIR, "Burnley.png"),
+    "Chelsea": os.path.join(LOGO_DIR, "Chelsea.png"),
+    "Crystal Palace": os.path.join(LOGO_DIR, "Crystal Palace.png"),
+    "Everton": os.path.join(LOGO_DIR, "Everton.png"),
+    "Fulham": os.path.join(LOGO_DIR, "Fulham.png"),
+    "Leeds": os.path.join(LOGO_DIR, "Leeds.png"),
+    "Liverpool": os.path.join(LOGO_DIR, "Liverpool.png"),
+    "Luton": os.path.join(LOGO_DIR, "Luton.png"),
+    "Man City": os.path.join(LOGO_DIR, "Man City.png"),
+    "Man United": os.path.join(LOGO_DIR, "Man United.png"),
+    "Newcastle": os.path.join(LOGO_DIR, "Newcastle.png"),
+    "Nott'm For": os.path.join(LOGO_DIR, "Nottingham Forest.png"),
+    "Sunderland": os.path.join(LOGO_DIR, "Sunderland.png"),
+    "Tottenham": os.path.join(LOGO_DIR, "Tottenham.png"),
+    "West Ham": os.path.join(LOGO_DIR, "West Ham.png"),
+    "Wolves": os.path.join(LOGO_DIR, "Wolves.png")
 }
 
 st.title("Infosys Springboard Internship Project")
