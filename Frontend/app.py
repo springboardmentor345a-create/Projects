@@ -7,14 +7,20 @@ import pickle
 # -----------------------------
 # Load models
 # -----------------------------
-with open("League_winner_model.pkl", "rb") as f:
+import os
+import pickle
+
+BASE_DIR = os.path.dirname(__file__)  # this ensures path relative to app.py
+
+with open(os.path.join(BASE_DIR, "League_winner_model.pkl"), "rb") as f:
     winner_model = pickle.load(f)
 
-with open("Points_model.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "Points_model.pkl"), "rb") as f:
     points_model = pickle.load(f)
 
-with open("scaler.pkl", "rb") as f:
+with open(os.path.join(BASE_DIR, "scaler.pkl"), "rb") as f:
     scaler = pickle.load(f)
+
 
 # -----------------------------
 # Page Config
