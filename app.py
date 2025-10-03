@@ -2,77 +2,35 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
-import os
+import os 
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier    
 
-try:
-    goal_model = joblib.load(r"Top_Goal_Scorer/linear_regression_model.pkl")
-    match_model = joblib.load(r"Match_Winner\logistic_regression_model.pkl")
-except FileNotFoundError as e:
-    class DummyModel:
-        def predict(self, data):
-            if data.shape[1] == 12:
-                return [20] 
-            else: # Match Winner features
-                if "HTHG" in data.columns and "HTAG" in data.columns:
-                    if data["HTHG"].iloc[0] > data["HTAG"].iloc[0]:
-                        return ["H"]
-                    elif data["HTAG"].iloc[0] > data["HTHG"].iloc[0]:
-                        return ["A"]
-                return ["D"] # Default to Draw if no clear half-time lead
-        
-        @property
-        def feature_names_in_(self):
-            return [
-                "HTHG", "HTAG", # New features at the start
-                "HomeShots", "AwayShots", "HomeShotsOnTarget", "AwayShotsOnTarget",
-                "HomeCorners", "AwayCorners", "HomeFouls", "AwayFouls",
-                "HomeYellowCards", "AwayYellowCards", "HomeRedCards", "AwayRedCards"
-            ] + [f"Home_{t}" for t in teams] + [f"Away_{t}" for t in teams]
-            
-    goal_model = DummyModel()
-    match_model = DummyModel()
-
-# Team list
 teams = [
     "Arsenal", "Aston Villa","Bournemouth","Brentford", "Brighton", "Burnley","Chelsea","Crystal Palace","Everton","Fulham","Leeds","Liverpool","Luton", "Man City", "Man United","Newcastle","Nott'm For","Sunderland","Tottenham","West Ham","Wolves"
 ]
 
-LOGO_DIR = "Logos"  # folder inside your repo
+goal_model = joblib.load("Top_Goal_Scorer/linear_regression_model.pkl")
+match_model = joblib.load("Match_Winner/logistic_regression_model.pkl")
+league_model = joblib.load("League Winner/league_model.pkl")
 
-team_logos = {
-    "Arsenal": os.path.join(LOGO_DIR, "Arsenal.png"),
-    "Aston Villa": os.path.join(LOGO_DIR, "Aston Villa.png"),
-    "Bournemouth": os.path.join(LOGO_DIR, "Bournemouth.png"),
-    "Brentford": os.path.join(LOGO_DIR, "Brentford.png"),
-    "Brighton": os.path.join(LOGO_DIR, "Brighton.png"),
-    "Burnley": os.path.join(LOGO_DIR, "Burnley.png"),
-    "Chelsea": os.path.join(LOGO_DIR, "Chelsea.png"),
-    "Crystal Palace": os.path.join(LOGO_DIR, "Crystal Palace.png"),
-    "Everton": os.path.join(LOGO_DIR, "Everton.png"),
-    "Fulham": os.path.join(LOGO_DIR, "Fulham.png"),
-    "Leeds": os.path.join(LOGO_DIR, "Leeds.png"),
-    "Liverpool": os.path.join(LOGO_DIR, "Liverpool.png"),
-    "Luton": os.path.join(LOGO_DIR, "Luton.png"),
-    "Man City": os.path.join(LOGO_DIR, "Man City.png"),
-    "Man United": os.path.join(LOGO_DIR, "Man United.png"),
-    "Newcastle": os.path.join(LOGO_DIR, "Newcastle.png"),
-    "Nott'm For": os.path.join(LOGO_DIR, "Nottingham Forest.png"),
-    "Sunderland": os.path.join(LOGO_DIR, "Sunderland.png"),
-    "Tottenham": os.path.join(LOGO_DIR, "Tottenham.png"),
-    "West Ham": os.path.join(LOGO_DIR, "West Ham.png"),
-    "Wolves": os.path.join(LOGO_DIR, "Wolves.png")
-}
+LOGO_DIR = "Logos"
+team_logos = {team: os.path.join(LOGO_DIR, f"{team}.png") for team in teams}
+team_logos["Nott'm For"] = os.path.join(LOGO_DIR, "Nottingham Forest.png")
 
 st.title("Infosys Springboard Internship Project")
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 with col1:
-    if st.button("Top Goal Scorer Prediction", use_container_width=True):
+    if st.button("⚽ Top Goal Scorer", use_container_width=True):
         st.session_state['option'] = "Top Goal Scorer"
 with col2:
-    if st.button("Match Winner Prediction", use_container_width=True):
+    if st.button("🏆 Match Winner", use_container_width=True):
         st.session_state['option'] = "Match Winner"
+with col3:
+    if st.button("🥇 League Winner", use_container_width=True):
+        st.session_state['option'] = "League Winner"
 
 if 'option' not in st.session_state:
     st.session_state['option'] = "Top Goal Scorer" 
@@ -89,10 +47,7 @@ if st.session_state.get('option') == "Top Goal Scorer":
         Age = st.number_input("Age", min_value=16, max_value=45, value=25)
         Appearances = st.number_input("Appearances", min_value=0, max_value=38, value=20)
         Goals_prev_season = st.number_input("Goals in Previous Season", min_value=0, value=5)
-        Penalty_Goals = st.number_input("Penalty Goals", min_value=0, value=1)
-        
     with col_b:
-        Non_Penalty_Goals = st.number_input("Non-Penalty Goals", min_value=0, value=4)
         Goals_per_90 = st.number_input("Goals per 90 mins", min_value=0.0, format="%.2f", value=0.45)
         Big_6_Club_Feature = st.number_input("Big 6 Club Feature (0=No, 1=Yes)", min_value=0, max_value=1, value=0)
         League_Goals_per_Match = st.number_input("League Goals per Match", min_value=0.0, format="%.2f", value=2.80)
@@ -112,8 +67,7 @@ if st.session_state.get('option') == "Top Goal Scorer":
     st.markdown("---")
     
     if st.button("Predict Goals", type="primary", use_container_width=True):
-        input_data = np.array([[Age, Appearances, Goals_prev_season,
-                                Penalty_Goals, Non_Penalty_Goals, Goals_per_90,
+        input_data = np.array([[Age, Appearances, Goals_prev_season,Goals_per_90,
                                 Big_6_Club_Feature, League_Goals_per_Match,
                                 *position_encoded]])
         prediction = goal_model.predict(input_data)
@@ -126,8 +80,20 @@ if st.session_state.get('option') == "Top Goal Scorer":
             """, 
             unsafe_allow_html=True
         )
+    sample_data = {
+        "Age": [23, 22, 23, 24],
+        "Appearances": [31, 33, 35, 37],
+        "Goals_per_90": [0.85, 0.61, 0.54, 0.41],
+        "Goals_prev_season": [36, 3, 11, 7],
+        "Big_6_Club_Feature": [1, 1, 1, 1],
+        "League_Goals_per_Match": [2.83, 2.83, 2.83, 2.85],
+        "Position": ["Forward", "Attacking Midfielder", "Winger", "Midfielder"],
+    }
+    sample_df = pd.DataFrame(sample_data, index=["1", "2", "3", "4"])
+    st.dataframe(sample_df)
 
-else:
+
+elif st.session_state.get('option') == "Match Winner":
     st.header("Match Winner Prediction")
     st.markdown("Enter match statistics to predict the final result (Home Win, Away Win, or Draw).")
 
@@ -141,20 +107,14 @@ else:
 
     with col_img_home:
         st.subheader(home_team)
-        if home_team in team_logos:
-            st.image(team_logos[home_team], width=100) 
-        else:
-            st.markdown(f"[]")
+        st.image(team_logos[home_team], width=100, caption="Home Team Logo") 
 
     with col_vs:
         st.markdown("<h2 style='text-align: center; margin-top: 50px;'>VS</h2>", unsafe_allow_html=True)
         
     with col_img_away:
         st.subheader(away_team)
-        if away_team in team_logos:
-            st.image(team_logos[away_team], width=100)
-        else:
-            st.markdown(f"[]") 
+        st.image(team_logos[away_team], width=100, caption="Away Team Logo") 
 
     st.markdown("---")
 
@@ -186,24 +146,13 @@ else:
         if home_team == away_team:
             st.error("Home Team and Away Team cannot be the same. Please select different teams.")
         else:
-            feature_dict = {
-                "HTHG": HomeHalfTimeGoals,
-                "HTAG": AwayHalfTimeGoals
-            }
+            feature_dict = { "HTHG": HomeHalfTimeGoals, "HTAG": AwayHalfTimeGoals }
             
             feature_dict.update({
-                "HomeShots": HomeShots,
-                "AwayShots": AwayShots,
-                "HomeShotsOnTarget": HomeShotsOnTarget,
-                "AwayShotsOnTarget": AwayShotsOnTarget,
-                "HomeCorners": HomeCorners,
-                "AwayCorners": AwayCorners,
-                "HomeFouls": HomeFouls,
-                "AwayFouls": AwayFouls,
-                "HomeYellowCards": HomeYellowCards,
-                "AwayYellowCards": AwayYellowCards,
-                "HomeRedCards": HomeRedCards,
-                "AwayRedCards": AwayRedCards
+                "HomeShots": HomeShots, "AwayShots": AwayShots, "HomeShotsOnTarget": HomeShotsOnTarget, 
+                "AwayShotsOnTarget": AwayShotsOnTarget, "HomeCorners": HomeCorners, "AwayCorners": AwayCorners, 
+                "HomeFouls": HomeFouls, "AwayFouls": AwayFouls, "HomeYellowCards": HomeYellowCards, 
+                "AwayYellowCards": AwayYellowCards, "HomeRedCards": HomeRedCards, "AwayRedCards": AwayRedCards
             })
 
             team_ohe = {f"Home_{team}": 0 for team in teams}
@@ -213,40 +162,22 @@ else:
             feature_dict.update(team_ohe)
 
             input_df = pd.DataFrame([feature_dict])
-            try:
-                expected_features = match_model.feature_names_in_ 
-            except AttributeError:
-                expected_features = [
-                    "HTHG", "HTAG",
-                    "HomeShots", "AwayShots", "HomeShotsOnTarget", "AwayShotsOnTarget",
-                    "HomeCorners", "AwayCorners", "HomeFouls", "AwayFouls",
-                    "HomeYellowCards", "AwayYellowCards", "HomeRedCards", "AwayRedCards"
-                ] + [f"Home_{t}" for t in teams] + [f"Away_{t}" for t in teams]
-
+            
+            expected_features = match_model.feature_names_in_ 
             input_df = input_df.reindex(columns=expected_features, fill_value=0)
 
             prediction = match_model.predict(input_df)[0]
-
-            winner_team_logo = None
+            
             if prediction == "H":
-                result_text = f"**{home_team}** Win (Home Win)"
-                bg_color = "#28a745" 
-                winner_team_logo = team_logos.get(home_team)
+                result_text = f"Predicted Result: **{home_team}** Win (Home Win)"
+                bg_color = "#28a745"
             elif prediction == "A":
-                result_text = f"**{away_team}** Win (Away Win)"
-                bg_color = "#ffc107" 
-                winner_team_logo = team_logos.get(away_team)
+                result_text = f"Predicted Result: **{away_team}** Win (Away Win)"
+                bg_color = "#ffc107"
             else:
-                result_text = "Draw"
-                bg_color = "#17a2b8" 
-                draw_col1, draw_col2 = st.columns(2)
-                with draw_col1:
-                    if home_team in team_logos:
-                        st.image(team_logos[home_team], width=70)
-                with draw_col2:
-                    if away_team in team_logos:
-                        st.image(team_logos[away_team], width=70)
-
+                result_text = "Predicted Result: Draw"
+                bg_color = "#17a2b8"
+                
             st.markdown(
                 f"""
                 <div style="background-color:{bg_color}; padding:15px; border-radius:8px; text-align:center; margin-top:20px;">
@@ -255,8 +186,103 @@ else:
                 """, 
                 unsafe_allow_html=True
             )
-            
-            if winner_team_logo:
-                st.markdown(f"<div style='text-align:center; margin-top:10px;'>", unsafe_allow_html=True)
-                st.image(winner_team_logo, width=150, caption=f"{home_team if prediction == 'H' else away_team} - Predicted Winner")
-                st.markdown(f"</div>", unsafe_allow_html=True)
+            st.markdown("---")
+    sample_datah = {
+        "HalfTimeHomeGoals": [2, 1, 0],
+        "HomeShots": [17, 6, 5],
+        "HomeShotsOnTarget": [14, 4, 4],
+        "HomeCorners": [6, 5, 5],
+        "HomeFouls": [13, 11, 12],
+        "HomeYellowCards": [1, 1, 2],
+        "HomeRedCards": [0, 0, 0]
+    }
+
+    sample_dataa = {
+        "HalfTimeAwayGoals": [0, 2, 0],
+        "AwayShots": [8, 13, 5],
+        "AwayShotsOnTarget": [4, 6, 3],
+        "AwayCorners": [6, 8, 4],
+        "AwayFouls": [12, 13, 12],
+        "AwayYellowCards": [2, 1, 3],
+        "AwayRedCards": [0, 0, 0]
+    }
+
+    home_df = pd.DataFrame(sample_datah, index=["Match 1", "Match 2", "Match 3"])
+    away_df = pd.DataFrame(sample_dataa, index=["Match 1", "Match 2", "Match 3"])
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("Home Stats")
+        st.dataframe(home_df)
+
+    with col2:
+        st.subheader("Away Stats")
+        st.dataframe(away_df)
+else: 
+    st.header("League Winner Prediction")
+    st.markdown("Enter season-end team statistics to predict the probability of winning the league.")
+
+    col_stats_1, col_stats_2 = st.columns(2)
+
+    with col_stats_1:
+        Matches_played = st.number_input("Matches Played", min_value=0, value=40)
+        won = st.number_input("Wins", min_value=0, value=27)
+        drawn = st.number_input("Draws", min_value=0, value=8)
+        lost = st.number_input("Losses", min_value=0, value=5)
+
+    with col_stats_2:
+        gf = st.number_input("Goals For (GF)", min_value=0, value=80)
+        ga = st.number_input("Goals Against (GA)", min_value=0, value=30)
+        gd = st.number_input("Goal Difference (GD)", value=50)
+        points = st.number_input("Points", min_value=0, value=89)
+
+    st.markdown("---")
+
+    if st.button("Calculate League Probability", type="primary", use_container_width=True):
+        new_data = pd.DataFrame([{
+            "played": Matches_played, 
+            "won": won, 
+            "drawn": drawn, 
+            "lost": lost,
+            "gf": gf, 
+            "ga": ga, 
+            "gd": gd, 
+            "points": points
+        }])
+
+        expected_features = league_model.feature_names_in_
+        new_data = new_data.reindex(columns=expected_features, fill_value=0)
+
+        prob = league_model.predict_proba(new_data)[0][1]
+        
+        if prob * 100 > 50:
+            result_color = "#28a745" 
+        else:
+            result_color = "#dc3545"
+        st.markdown(
+            f"""
+            <div style="background-color:{result_color}; padding:15px; border-radius:8px; text-align:center; margin-top:20px;">
+                <h3 style="color:white; margin:0;">
+                    Probability of Winning the League: <span style="font-size:1.5em; font-weight:bold;">{prob*100:.2f}%</span>
+                </h3>
+            </div>
+            """, 
+            unsafe_allow_html=True
+        )
+
+    st.markdown("---")
+    st.subheader("Sample League Table for Context")
+    
+    sample_data = {
+        "played": [42, 42, 42],
+        "won": [24, 21, 21],
+        "drawn": [12, 11, 9],
+        "lost": [6, 10, 12],
+        "gf": [67, 57, 61],
+        "ga": [31, 40, 65],
+        "gd": [36, 17, -4],
+        "points": [84, 74, 72]
+    }
+    sample_df = pd.DataFrame(sample_data, index=["1","2","3"])
+    st.dataframe(sample_df)
