@@ -280,37 +280,55 @@ if all(a is not None for a in assets):
                     predict_with_strength_only(strength_ratings, home_team, away_team)
                 else: 
                     display_professional_results(home_team, away_team, home_p, draw_p, away_p)
-
     elif st.session_state.view == 'future_match':
         st.subheader("Simulate a Future / Hypothetical Match")
         if st.button("⬅️ Back to Menu"): st.session_state.view = 'menu'; st.rerun()
         
-        # <<< --- NEW USER GUIDE SECTION --- >>>
+        # Calculate min and max ratings once for use throughout this section
+        min_rating = min(strength_ratings.values())
+        max_rating = max(strength_ratings.values())
+
         with st.expander("💡 How to Use the Strength Simulator", expanded=True):
             st.markdown("""
-            This tool lets you ask "what-if" questions based on a team's long-term strength. The **Team Rating (1-10)** is a simplified score derived from a complex **Elo-style rating system**, which analyzes historical performance.
-            
-            - **10**: A historically dominant, title-winning team (e.g., peak Man City).
-            - **5**: A solid mid-table team.
-            - **1**: A team struggling against relegation.
-            
-            Use the table below as a baseline for your simulation. To get a feel for a team's current form, you can also check the [official Premier League table](https://www.premierleague.com/tables).
+            This tool uses a **Team Rating (1.0-10.0)** based on our AI's internal **Elo rating system**. Use the table below as a data-driven baseline for your simulation.
             """)
             
-            # Calculate and display the scaled strength index
-            min_rating = min(strength_ratings.values())
-            max_rating = max(strength_ratings.values())
-            
+            # This dictionary will store the calculated scaled strengths for use in the table and sliders
+            scaled_strengths_map = {} 
             strength_data = []
             for team in all_teams:
-                rating = strength_ratings.get(team, 1500) # Default to 1500 if team not in ratings
-                # Min-Max scaling formula
-                scaled_strength = 1 + 9 * ((rating - min_rating) / (max_rating - min_rating))
+                rating = strength_ratings.get(team, 1500)
+                # Min-Max scaling formula to get a value between 1.0 and 10.0
+                scaled_strength = 1.0 + 9.0 * ((rating - min_rating) / (max_rating - min_rating))
+                scaled_strengths_map[team] = scaled_strength
                 strength_data.append({"Team": team, "Calculated Strength (1-10)": f"{scaled_strength:.1f}"})
             
             df_strength = pd.DataFrame(strength_data)
             st.dataframe(df_strength, use_container_width=True, hide_index=True)
-        # <<< --- END OF NEW SECTION --- >>>
+
+        with st.expander("🔬 How is the 1-10 Strength Rating Calculated?"):
+            st.markdown("""
+            The rating is calculated from our AI's internal **Elo Rating** using a formula called **Min-Max Scaling**. This finds where a team's current rating falls between the best and worst ratings ever recorded in our historical dataset.
+            """)
+            st.latex(r'''
+            \text{Scaled Strength} = 1 + 9 \times \left( \frac{\text{Current Elo} - \text{Lowest Elo in History}}{\text{Highest Elo in History} - \text{Lowest Elo in History}} \right)
+            ''')
+            st.markdown("---")
+            st.markdown("##### See it in action:")
+            
+            # Interactive explorer to show the calculation
+            team_to_explore = st.selectbox("Select a team to see its calculation", options=all_teams, key='explorer_team')
+            
+            current_elo = strength_ratings.get(team_to_explore, 1500)
+            
+            st.markdown(f"- **{team_to_explore}'s Current Elo Rating:** `{current_elo:.1f}`")
+            st.markdown(f"- **Lowest Elo in History (All Teams):** `{min_rating:.1f}`")
+            st.markdown(f"- **Highest Elo in History (All Teams):** `{max_rating:.1f}`")
+
+            final_scaled_strength = 1.0 + 9.0 * ((current_elo - min_rating) / (max_rating - min_rating))
+            
+            st.markdown("##### Calculation:")
+            st.code(f"1 + 9 * (({current_elo:.1f} - {min_rating:.1f}) / ({max_rating:.1f} - {min_rating:.1f})) = {final_scaled_strength:.1f}", language=None)
 
         with st.container(border=True):
             c1, c2 = st.columns(2)
@@ -318,23 +336,23 @@ if all(a is not None for a in assets):
             away_team_selection = c2.selectbox('Away Team', options=all_teams, key='away_f', index=all_teams.index("Arsenal") if "Arsenal" in all_teams else 1)
             
             st.markdown("---")
-            st.markdown("**Set the Hypothetical Team Rating (1-10) for your scenario:**")
+            st.markdown("**Set the Hypothetical Team Rating (1.0 - 10.0) for your scenario:**")
             
-            default_home_strength = strength_ratings.get(home_team_selection, 1500)
-            default_away_strength = strength_ratings.get(away_team_selection, 1500)
-            
-            # Find the closest key in our simple RATING_MAP to the team's actual strength
-            default_home_rating_key = min(REVERSE_RATING_MAP.keys(), key=lambda k:abs(k-default_home_strength))
-            default_away_rating_key = min(REVERSE_RATING_MAP.keys(), key=lambda k:abs(k-default_away_strength))
+            default_home_rating = scaled_strengths_map.get(home_team_selection, 5.0)
+            default_away_rating = scaled_strengths_map.get(away_team_selection, 5.0)
 
             c3, c4 = st.columns(2)
-            home_rating_input = c3.slider("Home Team Rating", 1, 10, REVERSE_RATING_MAP[default_home_rating_key], 1)
-            away_rating_input = c4.slider("Away Team Rating", 1, 10, REVERSE_RATING_MAP[default_away_rating_key], 1)
+            home_rating_input = c3.slider("Home Team Rating", min_value=1.0, max_value=10.0, value=default_home_rating, step=0.1, format="%.1f")
+            away_rating_input = c4.slider("Away Team Rating", min_value=1.0, max_value=10.0, value=default_away_rating, step=0.1, format="%.1f")
 
         if st.button('🔮 Simulate Outcome', use_container_width=True, key='predict_f', type="primary"):
             if home_team_selection == away_team_selection: st.warning("Please select two different teams.")
             else:
-                hypothetical_strengths = { 'home': RATING_MAP[home_rating_input], 'away': RATING_MAP[away_rating_input] }
+                # Convert the 1-10 user input back to the model's required Elo scale
+                home_elo = min_rating + ((home_rating_input - 1.0) / 9.0) * (max_rating - min_rating)
+                away_elo = min_rating + ((away_rating_input - 1.0) / 9.0) * (max_rating - min_rating)
+                
+                hypothetical_strengths = { 'home': home_elo, 'away': away_elo }
                 with st.spinner("Consulting the 'Strategist' AI expert..."):
                     home_p, draw_p, away_p, _ = get_and_predict(df_final, models, home_team_selection, away_team_selection, strength_ratings, "Future", hypothetical_strengths=hypothetical_strengths)
                 display_professional_results(home_team_selection, away_team_selection, home_p, draw_p, away_p)
