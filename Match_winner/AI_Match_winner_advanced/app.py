@@ -7,360 +7,340 @@ from collections import defaultdict
 import requests
 from bs4 import BeautifulSoup
 import os
+import base64
 
 # --- PAGE CONFIGURATION ---
-st.set_page_config(
-    page_title="Live Football Match Predictor",
-    page_icon="⚽",
-    layout="wide",
-)
+st.set_page_config(page_title="Live Football Match Predictor", page_icon="⚽", layout="wide")
 
-# --- MASTER TEAM LIST (USER DEFINED) ---
+# --- DEFINITIVE, FOCUSED TEAM LIST & LOCAL ASSET PATHS ---
 ALLOWED_TEAMS = [
-    "Arsenal", "Aston Villa", "Birmingham", "Blackburn", "Blackpool", "Bolton", "Bournemouth",
-    "Bradford", "Brentford", "Brighton", "Burnley", "Cardiff", "Charlton", "Chelsea", "Coventry",
-    "Crystal Palace", "Derby", "Everton", "Fulham", "Huddersfield", "Hull", "Ipswich", "Leeds",
-    "Leicester", "Liverpool", "Luton", "Man City", "Man United", "Middlesbrough", "Newcastle",
-    "Norwich", "Nott'm Forest", "Portsmouth", "QPR", "Reading", "Sheffield United", "Southampton",
-    "Stoke", "Sunderland", "Swansea", "Tottenham", "Watford", "West Brom", "West Ham", "Wigan", "Wolves"
+    "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton", "Burnley", "Chelsea", 
+    "Crystal Palace", "Everton", "Fulham", "Leeds", "Liverpool", "Man City", 
+    "Man United", "Newcastle", "Nottingham", "Sunderland", "Tottenham", 
+    "West Ham", "Wolverhampton"
 ]
+# --- DEFINITIVE LOCAL PNG PATHS ---
+TEAM_LOGOS = { 
+    "Arsenal": "assets/Arsenal.png", "Aston Villa": "assets/Aston_Villa.png", "Bournemouth": "assets/Bournemouth.png", 
+    "Brentford": "assets/Brentford.png", "Brighton": "assets/Brighton.png", "Burnley": "assets/Burnley.png",
+    "Chelsea": "assets/Chelsea.png", "Crystal Palace": "assets/Crystal_Palace.png", "Everton": "assets/Everton.png", 
+    "Fulham": "assets/Fulham.png", "Leeds": "assets/Leeds.png", "Liverpool": "assets/Liverpool.png", 
+    "Man City": "assets/Manchester_City.png", "Man United": "assets/Manchester_United.png", "Newcastle": "assets/Newcastle.png", 
+    "Nottingham": "assets/Nottingham.png", "Sunderland": "assets/Sunderland.png", "Tottenham": "assets/Tottenham.png", 
+    "West Ham": "assets/West_Ham.png", "Wolverhampton": "assets/Wolverhampton.png"
+}
+logo_aliases = { 
+    "Brighton and Hove Albion": "Brighton", "Manchester City": "Man City", "Manchester United": "Man United", 
+    "Newcastle United": "Newcastle", "Nottingham Forest": "Nottingham", "Nott'm Forest": "Nottingham", 
+    "Tottenham Hotspur": "Tottenham", "West Ham United": "West Ham", "Wolverhampton Wanderers": "Wolverhampton",
+    "Leeds United": "Leeds"
+}
 
-# --- TEAM LOGOS (COMPREHENSIVE & UPGRADED) ---
-ALL_TEAM_LOGOS = {
-    "Arsenal": "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
-    "Aston Villa": "https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282023%29.svg",
-    "Bournemouth": "https://upload.wikimedia.org/wikipedia/en/e/e5/AFC_Bournemouth_%282013%29.svg",
-    "Brentford": "https://upload.wikimedia.org/wikipedia/en/2/2a/Brentford_FC_crest.svg",
-    "Brighton": "https://upload.wikimedia.org/wikipedia/en/f/fd/Brighton_%26_Hove_Albion_logo.svg",
-    "Chelsea": "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg",
-    "Crystal Palace": "https://upload.wikimedia.org/wikipedia/en/a/a2/Crystal_Palace_FC_logo_%282022%29.svg",
-    "Everton": "https://upload.wikimedia.org/wikipedia/en/7/7c/Everton_FC_logo.svg",
-    "Fulham": "https://upload.wikimedia.org/wikipedia/en/e/eb/F.C._Fulham_crest.svg",
-    "Liverpool": "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
-    "Man City": "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
-    "Man United": "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg",
-    "Newcastle": "https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg",
-    "Nott'm Forest": "https://upload.wikimedia.org/wikipedia/en/d/d2/Nottingham_Forest_F.C._logo.svg",
-    "Tottenham": "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg",
-    "West Ham": "https://upload.wikimedia.org/wikipedia/en/c/c2/West_Ham_United_FC_logo.svg",
-    "Wolves": "https://upload.wikimedia.org/wikipedia/en/f/fc/Wolverhampton_Wanderers.svg",
-    "Burnley": "https://upload.wikimedia.org/wikipedia/en/6/62/Burnley_F.C._logo.svg",
-    "Luton": "https://upload.wikimedia.org/wikipedia/en/8/8b/Luton_Town_FC_logo.svg",
-    "Sheffield United": "https://upload.wikimedia.org/wikipedia/en/9/9c/Sheffield_United_FC_logo.svg",
-    "Ipswich": "https://upload.wikimedia.org/wikipedia/en/4/43/Ipswich_Town.svg",
-    "Leicester": "https://upload.wikimedia.org/wikipedia/en/2/2d/Leicester_City_crest.svg",
-    "Southampton": "https://upload.wikimedia.org/wikipedia/en/c/c9/Southampton_FC.svg",
-    "Leeds": "https://upload.wikimedia.org/wikipedia/en/5/54/Leeds_United_F.C._logo.svg",
-    "Norwich": "https://upload.wikimedia.org/wikipedia/en/8/8c/Norwich_City.svg",
-    "Watford": "https://upload.wikimedia.org/wikipedia/en/e/e2/Watford.svg",
-    "West Brom": "https://upload.wikimedia.org/wikipedia/en/8/8b/West_Bromwich_Albion.svg",
-    "Birmingham": "https://upload.wikimedia.org/wikipedia/en/6/68/Birmingham_City_FC_logo.svg",
-    "Blackburn": "https://upload.wikimedia.org/wikipedia/en/0/0f/Blackburn_Rovers.svg",
-    "Blackpool": "https://upload.wikimedia.org/wikipedia/en/d/df/Blackpool_FC_logo.svg",
-    "Bolton": "https://upload.wikimedia.org/wikipedia/en/8/82/Bolton_Wanderers_FC_logo.svg",
-    "Bradford": "https://upload.wikimedia.org/wikipedia/en/8/85/Bradford_City_AFC_logo.svg",
-    "Cardiff": "https://upload.wikimedia.org/wikipedia/en/3/3c/Cardiff_City_crest.svg",
-    "Charlton": "https://upload.wikimedia.org/wikipedia/en/5/5b/Charlton_Athletic.svg",
-    "Coventry": "https://upload.wikimedia.org/wikipedia/en/9/94/Coventry_City_FC_logo.svg",
-    "Derby": "https://upload.wikimedia.org/wikipedia/en/4/4a/Derby_County_crest.svg",
-    "Huddersfield": "https://upload.wikimedia.org/wikipedia/en/5/5a/Huddersfield_Town_A.F.C._logo.svg",
-    "Hull": "https://upload.wikimedia.org/wikipedia/en/4/4f/Hull_City_A.F.C._logo.svg",
-    "Middlesbrough": "https://upload.wikimedia.org/wikipedia/en/2/2c/Middlesbrough_FC_crest.svg",
-    "Portsmouth": "https://upload.wikimedia.org/wikipedia/en/3/3c/Portsmouth_FC_crest.svg",
-    "QPR": "https://upload.wikimedia.org/wikipedia/en/3/31/Queens_Park_Rangers_crest.svg",
-    "Reading": "https://upload.wikimedia.org/wikipedia/en/1/11/Reading_FC.svg",
-    "Stoke": "https://upload.wikimedia.org/wikipedia/en/2/29/Stoke_City_FC.svg",
-    "Sunderland": "https://upload.wikimedia.org/wikipedia/en/7/77/Sunderland_AFC_logo.svg",
-    "Swansea": "https://upload.wikimedia.org/wikipedia/en/1/16/Swansea_City_AFC_logo.svg",
-    "Wigan": "https://upload.wikimedia.org/wikipedia/en/4/43/Wigan_Athletic.svg",
-}
-# Add aliases for full names for robust matching
-logo_aliases = {
-    "Brighton and Hove Albion": "Brighton", "Manchester City": "Man City", "Manchester United": "Man United",
-    "Newcastle United": "Newcastle", "Nottingham Forest": "Nott'm Forest", "Tottenham Hotspur": "Tottenham",
-    "West Ham United": "West Ham", "Wolverhampton Wanderers": "Wolves", "Luton Town": "Luton",
-    "Sheffield Utd": "Sheffield United", "Ipswich Town": "Ipswich", "Leicester City": "Leicester",
-    "Leeds United": "Leeds", "Norwich City": "Norwich", "West Bromwich Albion": "West Brom"
-}
-for long, short in logo_aliases.items():
-    if short in ALL_TEAM_LOGOS:
-        ALL_TEAM_LOGOS[long] = ALL_TEAM_LOGOS[short]
-        
-TEAM_LOGOS = {key: value for key, value in ALL_TEAM_LOGOS.items() if any(allowed in key for allowed in ALLOWED_TEAMS)}
+# --- DEFINITIVE PNG Rendering Engine ---
+@st.cache_data
+def render_png_as_base64(png_path):
+    """Renders a local PNG file as a Base64 encoded URI."""
+    full_path = os.path.join(os.path.dirname(__file__), png_path)
+    if os.path.exists(full_path):
+        with open(full_path, "rb") as f:
+            png_bytes = f.read()
+            b64 = base64.b64encode(png_bytes).decode("utf-8")
+            return f"data:image/png;base64,{b64}"
+    return None
+
 
 # --- ASSET LOADING ---
 @st.cache_resource
 def load_assets():
-    """Load all models, encoders, and the main dataset from disk."""
+    """Load all AI experts and data assets."""
     try:
         script_dir = os.path.dirname(__file__)
-        with open(os.path.join(script_dir, 'win_lose_model.pkl'), 'rb') as file:
-            win_lose_model = pickle.load(file)
-        with open(os.path.join(script_dir, 'draw_model.pkl'), 'rb') as file:
-            draw_model = pickle.load(file)
-        with open(os.path.join(script_dir, 'win_loss_encoders.pkl'), 'rb') as file:
-            win_loss_encoders = pickle.load(file)
-        with open(os.path.join(script_dir, 'draw_encoders.pkl'), 'rb') as file:
-            draw_encoders = pickle.load(file)
+        with open(os.path.join(script_dir, 'win_lose_model_historian.pkl'), 'rb') as f: win_lose_historian = pickle.load(f)
+        with open(os.path.join(script_dir, 'draw_model_historian.pkl'), 'rb') as f: draw_historian = pickle.load(f)
+        with open(os.path.join(script_dir, 'win_lose_model_strategist.pkl'), 'rb') as f: win_lose_strategist = pickle.load(f)
+        with open(os.path.join(script_dir, 'draw_model_strategist.pkl'), 'rb') as f: draw_strategist = pickle.load(f)
+        with open(os.path.join(script_dir, 'win_loss_encoders.pkl'), 'rb') as f: win_loss_encoders = pickle.load(f)
+        with open(os.path.join(script_dir, 'draw_encoders.pkl'), 'rb') as f: draw_encoders = pickle.load(f)
+        with open(os.path.join(script_dir, 'final_strength_ratings.pkl'), 'rb') as f: strength_ratings = pickle.load(f)
         df = pd.read_csv(os.path.join(script_dir, 'full_feature_dataset_expanded.csv'))
         df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
         df = df.sort_values('Date', ascending=False).reset_index(drop=True)
-        return win_lose_model, draw_model, win_loss_encoders, draw_encoders, df
+        
+        models = {
+            "historian": {"win_loss": win_lose_historian, "draw": draw_historian},
+            "strategist": {"win_loss": win_lose_strategist, "draw": draw_strategist}
+        }
+        return models, win_loss_encoders, draw_encoders, df, strength_ratings
     except FileNotFoundError as e:
-        st.error(f"Error loading asset file: {e}. Ensure all .pkl and .csv files are in the repository.")
-        return None, None, None, None, None
+        st.error(f"Error loading asset file: {e}. Please ensure all four training scripts have been run and the .pkl files are in the repository.")
+        return (None,) * 5
 
 # --- LIVE DATA ENGINE ---
 @st.cache_data(ttl=3600)
 def fetch_live_epl_table():
-    """Scrapes the live EPL table from a trusted source."""
     try:
-        url = "https://www.bbc.com/sport/football/premier-league/table"
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
+        url = "https://www.espn.com/soccer/table/_/league/ENG.1"
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+        response = requests.get(url, headers=headers); response.raise_for_status()
         tables = pd.read_html(response.content)
-        df_table = tables[0]
-        df_table['Team'] = df_table['Team'].str.replace(r'^\d+', '', regex=True).str.strip()
-        rank_map = {row['Team']: row.name + 1 for _, row in df_table.iterrows()}
-        name_corrections = {
-            "Manchester United": "Man United", "Manchester City": "Man City", "Tottenham Hotspur": "Tottenham",
-            "Wolverhampton Wanderers": "Wolves", "Nottingham Forest": "Nott'm Forest", "West Ham United": "West Ham",
-            "Newcastle United": "Newcastle", "Brighton and Hove Albion": "Brighton"
-        }
+        if len(tables) < 2: return None
+        df_table = pd.concat([tables[0], tables[1]])
+        df_table = df_table.rename(columns={df_table.columns[0]: 'Team'})
+        df_table.dropna(subset=['Team'], inplace=True)
+        df_table['Team'] = df_table['Team'].astype(str)
+        def clean_espn_team_name(name):
+            for i, char in enumerate(name):
+                if char.isupper(): return name[i:]
+            return name
+        df_table['Team'] = df_table['Team'].apply(clean_espn_team_name)
+        df_table.reset_index(drop=True, inplace=True)
+        rank_map = {row['Team']: idx + 1 for idx, row in df_table.iterrows()}
+        name_corrections = { "Manchester United": "Man United", "Manchester City": "Man City", "Tottenham Hotspur": "Tottenham", "Wolverhampton Wanderers": "Wolverhampton", "Nottingham Forest": "Nottingham", "West Ham United": "West Ham", "Newcastle United": "Newcastle", "Brighton & Hove Albion": "Brighton" }
         return {name_corrections.get(team, team): rank for team, rank in rank_map.items()}
-    except Exception:
-        return None
-
-# --- NEW: LIVE ODDS ENGINE ---
-@st.cache_data(ttl=600) # Cache for 10 minutes
-def fetch_live_odds(home_team, away_team):
-    """Scrapes live odds for a specific match. THIS IS A DEMO and may break."""
-    st.info("Attempting to fetch live betting odds...")
-    try:
-        # A simplified mapping for demonstration purposes. Real-world would need a robust solution.
-        team_name_map = {
-            "Man United": "manchester-utd", "Man City": "manchester-city", "Nott'm Forest": "nottingham-forest",
-            "West Ham": "west-ham", "West Brom": "west-brom", "Sheffield United": "sheffield-utd"
-        }
-        home_team_url = team_name_map.get(home_team, home_team.replace(" ", "-").lower())
-        away_team_url = team_name_map.get(away_team, away_team.replace(" ", "-").lower())
-        
-        url = f"https://www.oddschecker.com/football/english/premier-league/{home_team_url}-v-{away_team_url}"
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.content, 'html.parser')
-        
-        # This is highly specific to the website's structure and may break
-        odds_elements = soup.find_all('span', class_='s-best-price-value')
-        if len(odds_elements) >= 3:
-            home_odd = float(eval(odds_elements[0].text)) + 1
-            draw_odd = float(eval(odds_elements[1].text)) + 1
-            away_odd = float(eval(odds_elements[2].text)) + 1
-            st.success("Successfully fetched live odds!")
-            return {'Avg_Odds_H': home_odd, 'Avg_Odds_D': draw_odd, 'Avg_Odds_A': away_odd}
     except Exception as e:
-        st.warning(f"Could not fetch live odds. Will use historical average. Reason: Site structure may have changed or odds not available.")
+        st.warning(f"Could not fetch live league table. Predictions may be less accurate. Error: {e}")
         return None
 
+# --- DYNAMIC FEATURE & PREDICTION LOGIC ---
+def get_and_predict(df, models, home_team, away_team, strength_map, mode, live_rank_map=None, hypothetical_strengths=None):
+    if mode == "Future":
+        st.info("Consulting the 'Strategist' AI expert (Context-Agnostic) for this simulation.")
+        draw_model, win_lose_model = models["strategist"]["draw"], models["strategist"]["win_loss"]
+        home_strength, away_strength = hypothetical_strengths['home'], hypothetical_strengths['away']
+        final_features = {'HomeTeam_Strength': home_strength, 'AwayTeam_Strength': away_strength}
+        input_df = pd.DataFrame([final_features])
+    else: # Current Season
+        draw_model, win_lose_model = models["historian"]["draw"], models["historian"]["win_loss"]
+        relevant_matches = df[((df['HomeTeam'] == home_team) & (df['AwayTeam'] == away_team))]
+        if relevant_matches.empty: return None, None, None, True
+        odds_features = relevant_matches.head(5)[[c for c in df.columns if 'Avg_Odds' in c]].mean().to_dict()
+        h2h_features = relevant_matches.head(5)[[c for c in df.columns if 'H2H' in c]].mean().to_dict()
+        form_diff_features = relevant_matches.iloc[0][[c for c in df.columns if 'form' in c and 'diff' in c]].to_dict()
+        home_strength, away_strength = strength_map.get(home_team, 1500), strength_map.get(away_team, 1500)
+        home_rank, away_rank = (live_rank_map.get(home_team, 10), live_rank_map.get(away_team, 11)) if live_rank_map else (10, 11)
+        home_form_features, away_form_features = {}, {}
+        home_matches = df[(df['HomeTeam'] == home_team) | (df['AwayTeam'] == away_team)]
+        if not home_matches.empty:
+            latest = home_matches.iloc[0]
+            prefix = 'H_form_' if latest['HomeTeam'] == home_team else 'A_form_'
+            for col in [c for c in df.columns if c.startswith(prefix)]: home_form_features['H_form_' + col[len(prefix):]] = latest[col]
+        away_matches = df[(df['HomeTeam'] == away_team) | (df['AwayTeam'] == away_team)]
+        if not away_matches.empty:
+            latest = away_matches.iloc[0]
+            prefix = 'H_form_' if latest['HomeTeam'] == away_team else 'A_form_'
+            for col in [c for c in df.columns if c.startswith(prefix)]: away_form_features['A_form_' + col[len(prefix):]] = latest[col]
+        final_features = {**home_form_features, **away_form_features, **form_diff_features, **h2h_features, **odds_features, 'HomeTeam_League_Rank': home_rank, 'AwayTeam_League_Rank': away_rank, 'HomeTeam_Strength': home_strength, 'AwayTeam_Strength': away_strength, 'HomeTeam': home_team, 'AwayTeam': away_team}
+        input_df = pd.DataFrame([final_features])
+    try:
+        input_df_draw, input_df_win_loss = input_df.copy(), input_df.copy()
+        if mode == "Current Season":
+            input_df_draw['HomeTeam'] = draw_encoders['home_team'].transform(input_df_draw['HomeTeam'])
+            input_df_draw['AwayTeam'] = draw_encoders['away_team'].transform(input_df_draw['AwayTeam'])
+            input_df_win_loss['HomeTeam'] = win_loss_encoders['home_team'].transform(input_df_win_loss['HomeTeam'])
+            input_df_win_loss['AwayTeam'] = win_loss_encoders['away_team'].transform(input_df_win_loss['AwayTeam'])
+        draw_model_features = draw_model.get_booster().feature_names
+        win_loss_model_features = win_lose_model.get_booster().feature_names
+        input_df_draw = input_df_draw[draw_model_features]
+        input_df_win_loss = input_df_win_loss[win_loss_model_features]
+    except Exception as e:
+        st.error(f"Error preparing data for models: {e}"); return None, None, None, False
+    draw_proba = draw_model.predict_proba(input_df_draw)[0][1]
+    win_loss_probs = win_lose_model.predict_proba(input_df_win_loss)[0]
+    away_idx = np.where(win_loss_encoders['y_encoder_wl'].classes_ == 'A')[0][0]
+    home_idx = np.where(win_loss_encoders['y_encoder_wl'].classes_ == 'H')[0][0]
+    away_cond, home_cond = win_loss_probs[away_idx], win_loss_probs[home_idx]
+    away_win, home_win = away_cond * (1 - draw_proba), home_cond * (1 - draw_proba)
+    total = home_win + away_win + draw_proba
+    if total > 0: home_win, away_win, draw_proba = home_win/total, away_win/total, draw_proba/total
+    no_h2h_flag = (mode == "Current Season" and 'relevant_matches' in locals() and relevant_matches.empty)
+    return home_win, draw_proba, away_win, no_h2h_flag
 
-# (The rest of the app code remains largely the same, but the get_advanced_features function will be updated)
+# --- UI Functions ---
+def display_professional_results(home_team, away_team, home_p, draw_p, away_p):
+    """The definitive, polished results display function with local assets."""
+    home_logo_path = TEAM_LOGOS.get(home_team, TEAM_LOGOS.get(logo_aliases.get(home_team)))
+    away_logo_path = TEAM_LOGOS.get(away_team, TEAM_LOGOS.get(logo_aliases.get(away_team)))
+    home_svg = render_png_as_base64(home_logo_path)
+    away_svg = render_png_as_base64(away_logo_path)
+    
+    st.markdown("""<style> .team { font-size: 1.5em; font-weight: bold; } .team-logo { width: 80px; height: auto; } .prob-bar-container { width: 100%; display: flex; height: 40px; border-radius: 10px; overflow: hidden; font-size: 1em; color: white; font-weight: bold; } .prob-bar-segment { display: flex; align-items: center; justify-content: center; } .home-win { background-color: #4CAF50; } .draw { background-color: #FFC107; } .away-win { background-color: #F44336; } </style>""", unsafe_allow_html=True)
+    
+    c1, c2, c3 = st.columns([2, 1, 2])
+    with c1:
+        if home_svg: st.markdown(f'<div style="text-align: right;"><img src="{home_svg}" class="team-logo"></div>', unsafe_allow_html=True)
+        st.markdown(f'<p class="team" style="text-align: right;">{home_team}</p>', unsafe_allow_html=True)
+    with c2: st.markdown('<div style="text-align: center; font-size: 2.5em; font-weight: bold; margin-top: 40px;">VS</div>', unsafe_allow_html=True)
+    with c3:
+        if away_svg: st.markdown(f'<div style="text-align: left;"><img src="{away_svg}" class="team-logo"></div>', unsafe_allow_html=True)
+        st.markdown(f'<p class="team" style="text-align: left;">{away_team}</p>', unsafe_allow_html=True)
 
-with st.spinner('Loading advanced models and historical match data...'):
+    st.subheader("Win Probability", anchor=False)
+    st.markdown(f"""<div class="prob-bar-container"> <div class="prob-bar-segment home-win" style="width: {home_p:.2%};">{home_p:.1%}</div> <div class="prob-bar-segment draw" style="width: {draw_p:.2%};">{draw_p:.1%}</div> <div class="prob-bar-segment away-win" style="width: {away_p:.2%};">{away_p:.1%}</div> </div>""", unsafe_allow_html=True)
+    outcomes = {'Home Win': home_p, 'Draw': draw_p, 'Away Win': away_p}; final_call = max(outcomes, key=outcomes.get)
+    st.divider()
+    
+    st.subheader('Final Verdict', anchor=False)
+    
+    winner_team = home_team if final_call == 'Home Win' else away_team if final_call == 'Away Win' else None
+    
+    if winner_team:
+        st.snow()
+        winner_logo_path = TEAM_LOGOS.get(winner_team, TEAM_LOGOS.get(logo_aliases.get(winner_team)))
+        winner_svg = render_png_as_base64(winner_logo_path)
+        
+        _, center_col, _ = st.columns([1, 1, 1])
+        with center_col:
+            if winner_svg:
+                st.markdown(f'<div style="text-align: center;"><img src="{winner_svg}" width=150></div>', unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: green;'>WINNER: {winner_team.upper()}</h2>", unsafe_allow_html=True)
+    else: # Draw
+        _, center_col, _ = st.columns([1, 1, 1])
+        with center_col:
+            st.markdown("<h1 style='text-align: center; font-size: 80px;'>🤝</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: #D39C00;'>DRAW</h2>", unsafe_allow_html=True)
+
+def predict_with_strength_only(strength_map, home_team, away_team):
+    """A robust fallback using Team Strength Rating."""
+    st.warning("⚠️ No historical H2H data found. A simplified prediction will be made based on the teams' inherent Strength Rating.")
+    home_strength, away_strength = strength_map.get(home_team, 1500), strength_map.get(away_team, 1500)
+    strength_difference = abs(home_strength - away_strength)
+    DRAW_THRESHOLD = 75 
+    st.subheader('Final Verdict (Strength-Based)', anchor=False)
+    
+    winner = None
+    if strength_difference > DRAW_THRESHOLD:
+        winner = home_team if home_strength > away_strength else away_team
+
+    if winner:
+        st.snow()
+        _, center_col, _ = st.columns([1, 1, 1])
+        with center_col:
+            logo_path = TEAM_LOGOS.get(winner, TEAM_LOGOS.get(logo_aliases.get(winner)))
+            winner_svg = render_png_as_base64(logo_path)
+            if winner_svg:
+                st.markdown(f'<div style="text-align: center;"><img src="{winner_svg}" width=120></div>', unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: green;'>LIKELY WINNER: {winner.upper()}</h2>", unsafe_allow_html=True)
+    else:
+        _, center_col, _ = st.columns([1, 1, 1])
+        with center_col:
+            st.markdown("<h1 style='text-align: center; font-size: 80px;'>🤝</h1>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='text-align: center; color: #D39C00;'>DRAW</h2>", unsafe_allow_html=True)
+
+# --- UI & APP LOGIC ---
+with st.spinner('Loading all AI experts and data...'):
     assets = load_assets()
 
-# --- HEADER ---
-st.image("https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=2970", use_container_width=True)
-st.title('Live Football Match Predictor')
-st.markdown("### Harnessing AI to Forecast Premier League Outcomes")
-st.markdown("---")
+st.image("https://images.pexels.com/photos/270085/pexels-photo-270085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", use_container_width=True)
+st.title('AI Football Match Predictor')
+
+if 'view' not in st.session_state: st.session_state.view = 'menu'
 
 if all(a is not None for a in assets):
-    win_lose_model, draw_model, win_loss_encoders, draw_encoders, df_final = assets
-    
+    models, win_loss_encoders, draw_encoders, df_final, strength_ratings = assets
     live_ranks = fetch_live_epl_table()
-    
-    # --- DYNAMIC FEATURE ENGINEERING ENGINE ---
-    def get_advanced_features(df, home_team, away_team, live_rank_map, num_matches_for_avg=5):
-        relevant_matches = df[((df['HomeTeam'] == home_team) & (df['AwayTeam'] == away_team))]
-        if relevant_matches.empty:
-            return None # Trigger fallback
+    all_teams = ALLOWED_TEAMS
 
-        # --- NEW: Live Odds Integration ---
-        live_odds = fetch_live_odds(home_team, away_team)
-        
-        if live_odds:
-            # Use live odds if available
-            odds_features = live_odds
-        else:
-            # Fallback to historical average
-            odds_feature_names = [col for col in df.columns if 'Avg_Odds' in col]
-            odds_features = relevant_matches.head(num_matches_for_avg)[odds_feature_names].mean().to_dict()
+    RATING_MAP = { 1: 1300, 2: 1350, 3: 1400, 4: 1450, 5: 1500, 6: 1550, 7: 1600, 8: 1650, 9: 1700, 10: 1750 }
+    REVERSE_RATING_MAP = {v: k for k, v in RATING_MAP.items()}
 
-        # Get H2H averages
-        h2h_feature_names = [col for col in df.columns if 'H2H' in col]
-        h2h_features = relevant_matches.head(num_matches_for_avg)[h2h_feature_names].mean().to_dict()
+    if st.session_state.view == 'menu':
+        st.subheader("Choose a Prediction Mode")
+        c1, c2 = st.columns(2)
+        with c1:
+            with st.container(border=True):
+                st.markdown("### 📊 Current Season Prediction"); st.write("Predict a near-future match using the **'Historian'** AI expert for maximum contextual accuracy.")
+                if st.button("Start Current Prediction", use_container_width=True, type="primary"):
+                    st.session_state.view = 'current_season'; st.rerun()
+        with c2:
+            with st.container(border=True):
+                st.markdown("### 🔮 Future Scenario Simulator"); st.write("Predict a hypothetical match using the **'Strategist'** AI expert, which ignores team identities and focuses purely on strength.")
+                if st.button("Start Future Scenario", use_container_width=True):
+                    st.session_state.view = 'future_match'; st.rerun()
+        st.divider()
+        with st.expander("🔬 What's the difference between the two AI experts?"):
+            st.markdown("""
+            This application is powered by two distinct AI models, each with a specialized purpose:
+            - **The 'Historian' (Current Season):** This AI is like an expert sports historian. It has studied every team's specific rivalries, biases, and historical patterns. It uses this deep, context-rich knowledge, along with live league tables, to make the most accurate predictions for matches happening **now**.
+            - **The 'Strategist' (Future Simulator):** This AI is a pure theorist. It was trained without ever knowing team names, so it has no biases. It has learned the fundamental physics of football—how a team with a certain strength rating performs against another. It is used to simulate hypothetical "what-if" scenarios for the **future**, where its judgment is based purely on the ratings you provide.
+            """)
 
-        latest_h2h_match = relevant_matches.iloc[0]
-        form_diff_names = [col for col in df.columns if 'form' in col and 'diff' in col]
-        form_diff_features = latest_h2h_match[form_diff_names].to_dict()
-
-        if live_rank_map:
-            home_rank = live_rank_map.get(home_team, 20)
-            away_rank = live_rank_map.get(away_team, 20)
-        else:
-            st.warning("Using historical rank as a fallback.")
-            temp_ranks = {team: i+1 for i, team in enumerate(df['HomeTeam'].unique())}
-            home_rank = temp_ranks.get(home_team, 20)
-            away_rank = temp_ranks.get(away_team, 20)
-
-        home_team_matches = df[(df['HomeTeam'] == home_team) | (df['AwayTeam'] == home_team)]
-        home_form_features = {}
-        if not home_team_matches.empty:
-            latest_match = home_team_matches.iloc[0]
-            old_prefix = 'H_form_' if latest_match['HomeTeam'] == home_team else 'A_form_'
-            form_cols = [c for c in df.columns if c.startswith(old_prefix)]
-            for col in form_cols:
-                new_col_name = 'H_form_' + col[len(old_prefix):]
-                home_form_features[new_col_name] = latest_match[col]
-
-        away_team_matches = df[(df['HomeTeam'] == away_team) | (df['AwayTeam'] == away_team)]
-        away_form_features = {}
-        if not away_team_matches.empty:
-            latest_match = away_team_matches.iloc[0]
-            old_prefix = 'H_form_' if latest_match['HomeTeam'] == away_team else 'A_form_'
-            form_cols = [c for c in df.columns if c.startswith(old_prefix)]
-            for col in form_cols:
-                new_col_name = 'A_form_' + col[len(old_prefix):]
-                away_form_features[new_col_name] = latest_match[col]
-
-        final_features = {
-            **home_form_features, **away_form_features, **form_diff_features,
-            **h2h_features, **odds_features,
-            'HomeTeam_League_Rank': home_rank, 'AwayTeam_League_Rank': away_rank,
-            'HomeTeam': home_team, 'AwayTeam': away_team
-        }
-        return pd.DataFrame([final_features])
-
-    # --- UI & INPUTS ---
-    with st.container(border=True):
-        st.subheader("Select a Matchup", anchor=False)
-        all_teams_from_df = sorted(list(set(df_final['HomeTeam'].unique()) | set(df_final['AwayTeam'].unique())))
-        all_teams = [team for team in all_teams_from_df if team in ALLOWED_TEAMS]
-
-        col1, col2 = st.columns(2)
-        with col1:
-            home_team = st.selectbox('Home Team', options=all_teams, index=all_teams.index("Man United") if "Man United" in all_teams else 0)
-        with col2:
-            away_team = st.selectbox('Away Team', options=all_teams, index=all_teams.index("Liverpool") if "Liverpool" in all_teams else 1)
-
-    # --- PREDICTION LOGIC & Fallback ---
-    # The rest of the prediction logic remains the same
-    if st.button('🔮 Predict Outcome', type="primary", use_container_width=True):
-        if home_team == away_team:
-            st.warning("Please select two different teams.")
-        else:
-            with st.spinner(f"Calculating features for {home_team} vs {away_team}..."):
-                input_df = get_advanced_features(df_final, home_team, away_team, live_ranks)
-
-            if input_df is None:
-                predict_with_ranks_only(live_ranks, home_team, away_team)
+    elif st.session_state.view == 'current_season':
+        st.subheader("Predict a Current Season Match")
+        if st.button("⬅️ Back to Menu"): st.session_state.view = 'menu'; st.rerun()
+        with st.container(border=True):
+            c1, c2 = st.columns(2)
+            home_team = c1.selectbox('Home Team', options=all_teams, key='home_c', index=all_teams.index("Man United") if "Man United" in all_teams else 0)
+            away_team = c2.selectbox('Away Team', options=all_teams, key='away_c', index=all_teams.index("Liverpool") if "Liverpool" in all_teams else 1)
+        if st.button('🔮 Predict Outcome', use_container_width=True, key='predict_c', type="primary"):
+            if home_team == away_team: st.warning("Please select two different teams.")
             else:
-                st.success("Generated features! Making a prediction...")
-                # ... [The rest of the prediction and display logic from the previous version] ...
-                input_df_draw = input_df.copy()
-                input_df_win_loss = input_df.copy()
-                
-                try:
-                    draw_model_features = draw_model.get_booster().feature_names
-                    input_df_draw['HomeTeam'] = draw_encoders['home_team'].transform(input_df_draw['HomeTeam'])
-                    input_df_draw['AwayTeam'] = draw_encoders['away_team'].transform(input_df_draw['AwayTeam'])
-                    input_df_draw = input_df_draw[draw_model_features]
-                    
-                    win_loss_model_features = win_lose_model.get_booster().feature_names
-                    input_df_win_loss['HomeTeam'] = win_loss_encoders['home_team'].transform(input_df_win_loss['HomeTeam'])
-                    input_df_win_loss['AwayTeam'] = win_loss_encoders['away_team'].transform(input_df_win_loss['AwayTeam'])
-                    input_df_win_loss = input_df_win_loss[win_loss_model_features]
-                except Exception as e:
-                    st.error(f"An error occurred during data preparation: {e}")
-                    st.stop()
+                with st.spinner("Consulting the 'Historian' AI expert..."):
+                    home_p, draw_p, away_p, no_h2h = get_and_predict(df_final, models, home_team, away_team, strength_ratings, "Current Season", live_rank_map=live_ranks)
+                if no_h2h:
+                    predict_with_strength_only(strength_ratings, home_team, away_team)
+                else: 
+                    display_professional_results(home_team, away_team, home_p, draw_p, away_p)
 
-                draw_proba = draw_model.predict_proba(input_df_draw)[0][1]
-                win_loss_probs = win_lose_model.predict_proba(input_df_win_loss)[0]
-                
-                away_class_index = np.where(win_loss_encoders['y_encoder_wl'].classes_ == 'A')[0][0]
-                home_class_index = np.where(win_loss_encoders['y_encoder_wl'].classes_ == 'H')[0][0]
-                
-                away_win_prob_conditional = win_loss_probs[away_class_index]
-                home_win_prob_conditional = win_loss_probs[home_class_index]
+    elif st.session_state.view == 'future_match':
+        st.subheader("Simulate a Future / Hypothetical Match")
+        if st.button("⬅️ Back to Menu"): st.session_state.view = 'menu'; st.rerun()
+        
+        # <<< --- NEW USER GUIDE SECTION --- >>>
+        with st.expander("💡 How to Use the Strength Simulator", expanded=True):
+            st.markdown("""
+            This tool lets you ask "what-if" questions based on a team's long-term strength. The **Team Rating (1-10)** is a simplified score derived from a complex **Elo-style rating system**, which analyzes historical performance.
+            
+            - **10**: A historically dominant, title-winning team (e.g., peak Man City).
+            - **5**: A solid mid-table team.
+            - **1**: A team struggling against relegation.
+            
+            Use the table below as a baseline for your simulation. To get a feel for a team's current form, you can also check the [official Premier League table](https://www.premierleague.com/tables).
+            """)
+            
+            # Calculate and display the scaled strength index
+            min_rating = min(strength_ratings.values())
+            max_rating = max(strength_ratings.values())
+            
+            strength_data = []
+            for team in all_teams:
+                rating = strength_ratings.get(team, 1500) # Default to 1500 if team not in ratings
+                # Min-Max scaling formula
+                scaled_strength = 1 + 9 * ((rating - min_rating) / (max_rating - min_rating))
+                strength_data.append({"Team": team, "Calculated Strength (1-10)": f"{scaled_strength:.1f}"})
+            
+            df_strength = pd.DataFrame(strength_data)
+            st.dataframe(df_strength, use_container_width=True, hide_index=True)
+        # <<< --- END OF NEW SECTION --- >>>
 
-                away_win_proba = away_win_prob_conditional * (1 - draw_proba)
-                home_win_proba = home_win_prob_conditional * (1 - draw_proba)
-                
-                total_proba = home_win_proba + away_win_proba + draw_proba
-                if total_proba == 0: total_proba = 1
-                home_win_proba /= total_proba
-                away_win_proba /= total_proba
-                draw_proba /= total_proba
-                
-                with st.container(border=True):
-                    st.subheader('🏆 Prediction Probabilities', anchor=False)
-                    outcomes = {'Home Win': home_win_proba, 'Draw': draw_proba, 'Away Win': away_win_proba}
-                    final_call = max(outcomes, key=outcomes.get)
+        with st.container(border=True):
+            c1, c2 = st.columns(2)
+            home_team_selection = c1.selectbox('Home Team', options=all_teams, key='home_f', index=all_teams.index("Chelsea") if "Chelsea" in all_teams else 0)
+            away_team_selection = c2.selectbox('Away Team', options=all_teams, key='away_f', index=all_teams.index("Arsenal") if "Arsenal" in all_teams else 1)
+            
+            st.markdown("---")
+            st.markdown("**Set the Hypothetical Team Rating (1-10) for your scenario:**")
+            
+            default_home_strength = strength_ratings.get(home_team_selection, 1500)
+            default_away_strength = strength_ratings.get(away_team_selection, 1500)
+            
+            # Find the closest key in our simple RATING_MAP to the team's actual strength
+            default_home_rating_key = min(REVERSE_RATING_MAP.keys(), key=lambda k:abs(k-default_home_strength))
+            default_away_rating_key = min(REVERSE_RATING_MAP.keys(), key=lambda k:abs(k-default_away_strength))
 
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        st.metric(label=f"P({home_team} Win)", value=f"{home_win_proba:.2%}")
-                    with col2:
-                        st.metric(label="P(Draw)", value=f"{draw_proba:.2%}")
-                    with col3:
-                        st.metric(label=f"P({away_team} Win)", value=f"{away_win_proba:.2%}")
-                    
-                    st.divider()
-                    st.subheader('Final Verdict', anchor=False)
-                    
-                    if final_call == 'Home Win':
-                        logo_url = TEAM_LOGOS.get(home_team)
-                        _, center_col, _ = st.columns([1, 1, 1])
-                        if logo_url:
-                            center_col.image(logo_url, width=150)
-                        center_col.success(f"🥇 The system predicts a **{home_team}** win!", icon="🎉")
-                        st.balloons()
-                    elif final_call == 'Away Win':
-                        logo_url = TEAM_LOGOS.get(away_team)
-                        _, center_col, _ = st.columns([1, 1, 1])
-                        if logo_url:
-                            center_col.image(logo_url, width=150)
-                        center_col.success(f"🥇 The system predicts an **{away_team}** win!", icon="🎉")
-                        st.balloons()
-                    else: # Draw
-                        _, center_col, _ = st.columns([1, 1, 1])
-                        center_col.markdown("<h1 style='text-align: center;'>🤝</h1>", unsafe_allow_html=True)
-                        center_col.info(f"🤝 The system predicts a **DRAW**.", icon="⚖️")
+            c3, c4 = st.columns(2)
+            home_rating_input = c3.slider("Home Team Rating", 1, 10, REVERSE_RATING_MAP[default_home_rating_key], 1)
+            away_rating_input = c4.slider("Away Team Rating", 1, 10, REVERSE_RATING_MAP[default_away_rating_key], 1)
 
+        if st.button('🔮 Simulate Outcome', use_container_width=True, key='predict_f', type="primary"):
+            if home_team_selection == away_team_selection: st.warning("Please select two different teams.")
+            else:
+                hypothetical_strengths = { 'home': RATING_MAP[home_rating_input], 'away': RATING_MAP[away_rating_input] }
+                with st.spinner("Consulting the 'Strategist' AI expert..."):
+                    home_p, draw_p, away_p, _ = get_and_predict(df_final, models, home_team_selection, away_team_selection, strength_ratings, "Future", hypothetical_strengths=hypothetical_strengths)
+                display_professional_results(home_team_selection, away_team_selection, home_p, draw_p, away_p)
 else:
-    st.info('Select two teams and click "Predict Outcome" to see the AI in action.')
+    st.error('Failed to load critical application assets. Please check the logs.')
 
-# --- Explanation Section ---
-with st.expander("🔬 How does this work?"):
-    st.markdown("""
-    This prediction engine is more than just a model; it's a complete analytical pipeline that combines historical data with live, real-world information.
-    
-    **1. Live Betting Odds:** The app attempts to scrape live odds from a public source. This provides the sharpest signal of the market's current expectation for the match. If live odds are unavailable, it falls back to a historical average.
-    
-    **2. Live League Table:** The app scrapes the current, official Premier League table. This gives the model the most accurate possible signal of a team's current standing.
-    
-    **3. True Team Form:** It calculates each team's recent form by analyzing their performance in their last few matches against *any* opponent.
-    
-    **4. Historical Context:** It looks at the history between the two selected teams, averaging their past Head-to-Head (H2H) stats.
-    
-    **5. AI Prediction:** These features are combined and fed into two specialized XGBoost models to forecast the outcome.
-    
-    **6. Graceful Fallback:** If no direct historical data exists, the system automatically switches to a simplified prediction model based purely on their current league ranking.
-    """)
-
-# --- FOOTER ---
-st.markdown("---")
-st.markdown("Developed with ❤️ by AKN. This is a portfolio project demonstrating advanced AI engineering concepts for Infosys Inernship.")
-
+# --- Footer Credit Section ---
+st.divider()
+st.markdown("<p style='text-align: center;'>Developed by Arvind K N as a part of the Infosys Internship program.</p>", unsafe_allow_html=True)
