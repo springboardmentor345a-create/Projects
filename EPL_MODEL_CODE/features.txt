@@ -1,0 +1,9 @@
+Position
+Age
+Appearances
+Minutes_Played
+Goals_prev_season
+Assists
+Goals_per_90
+League_Goals_per_Match
+Goals_last_3_seasons_avg

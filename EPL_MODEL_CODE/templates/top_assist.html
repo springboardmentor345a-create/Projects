@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Assist Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="back-link">← Back to Home</a>
+      <h1>🎯 Top Assist Prediction</h1>
+    </div>
+    
+    <div class="container">
+      {% if prediction %}
+        <div class="result">
+          <div class="result-label">Predicted Assists This Season</div>
+          <div class="result-value">{{ prediction }} assists</div>
+        </div>
+      {% endif %}
+      
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+      
+      <div class="prediction-form">
+        <form method="post">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="Age">Age</label>
+              <input type="number" name="Age" id="Age" placeholder="Enter value" value="{{ form_data.get('Age', '') }}" required min="16" max="45">
+            </div>
+            
+            <div class="form-group">
+              <label for="Position">Position</label>
+              <select name="Position" id="Position" required>
+                <option value="">Select Position</option>
+                {% for pos in positions %}
+                  <option value="{{ pos }}" {% if form_data.get('Position') == pos %}selected{% endif %}>{{ pos }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="Minutes_Played">Minutes Played</label>
+              <input type="number" name="Minutes_Played" id="Minutes_Played" placeholder="Enter value" value="{{ form_data.get('Minutes_Played', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Assists_prev_season">Assists Prev Season</label>
+              <input type="number" name="Assists_prev_season" id="Assists_prev_season" placeholder="Enter value" value="{{ form_data.get('Assists_prev_season', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Goals_prev_season">Goals Prev Season</label>
+              <input type="number" name="Goals_prev_season" id="Goals_prev_season" placeholder="Enter value" value="{{ form_data.get('Goals_prev_season', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Key_Passes">Key Passes</label>
+              <input type="number" name="Key_Passes" id="Key_Passes" placeholder="Enter value" value="{{ form_data.get('Key_Passes', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Expected_Assists_(xA)">Expected Assists (xA)</label>
+              <input type="number" step="0.01" name="Expected_Assists_(xA)" id="Expected_Assists_(xA)" placeholder="Enter value" value="{{ form_data.get('Expected_Assists_(xA)', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Shots_Assisted">Shots Assisted</label>
+              <input type="number" name="Shots_Assisted" id="Shots_Assisted" placeholder="Enter value" value="{{ form_data.get('Shots_Assisted', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Assists_per_90">Assists Per 90</label>
+              <input type="number" step="0.01" name="Assists_per_90" id="Assists_per_90" placeholder="Enter value" value="{{ form_data.get('Assists_per_90', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Goals_per_90">Goals Per 90</label>
+              <input type="number" step="0.01" name="Goals_per_90" id="Goals_per_90" placeholder="Enter value" value="{{ form_data.get('Goals_per_90', '') }}" required min="0">
+            </div>
+            
+            <div class="form-group">
+              <label for="Shots_Assisted_per_90">Shots Assisted Per 90</label>
+              <input type="number" step="0.01" name="Shots_Assisted_per_90" id="Shots_Assisted_per_90" placeholder="Enter value" value="{{ form_data.get('Shots_Assisted_per_90', '') }}" required min="0">
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Predict Assists</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
