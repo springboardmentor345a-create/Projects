@@ -59,5 +59,4 @@ cd path/to/your_project
 ## Run the Streamlit app:
 ```bash
 streamlit run app.py
-
 ```
