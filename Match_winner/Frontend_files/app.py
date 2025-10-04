@@ -47,12 +47,12 @@ def render_png_as_base64(png_path):
 def load_assets():
     """Load the single Pure CatBoost model toolkit and data assets."""
     try:
-        current_dir = os.getcwd()
-        with open(os.path.join(current_dir, 'pure_catboost_assets.pkl'), 'rb') as f:
+        current_dir = os.path.dirname(__file__)
+        with open(os.path.join(current_dir,'Frontend_files', 'pure_catboost_assets.pkl'), 'rb') as f:
             catboost_assets = pickle.load(f)
-        with open(os.path.join(current_dir, 'final_strength_ratings.pkl'), 'rb') as f:
+        with open(os.path.join(current_dir, 'Frontend_files','final_strength_ratings.pkl'), 'rb') as f:
             strength_ratings = pickle.load(f)
-        df = pd.read_csv(os.path.join(current_dir, 'full_feature_dataset_expanded.csv'))
+        df = pd.read_csv(os.path.join(current_dir, 'Frontend_files','full_feature_dataset_expanded.csv'))
         df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
         df = df.sort_values('Date', ascending=False).reset_index(drop=True)
         return catboost_assets, df, strength_ratings
