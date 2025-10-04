@@ -18,13 +18,13 @@ ALLOWED_TEAMS = [
     "West Ham", "Wolverhampton"
 ]
 TEAM_LOGOS = { 
-    "Arsenal": "assets/Arsenal.png", "Aston Villa": "assets/Aston_Villa.png", "Bournemouth": "assets/Bournemouth.png", 
-    "Brentford": "assets/Brentford.png", "Brighton": "assets/Brighton.png", "Burnley": "assets/Burnley.png",
-    "Chelsea": "assets/Chelsea.png", "Crystal Palace": "assets/Crystal_Palace.png", "Everton": "assets/Everton.png", 
-    "Fulham": "assets/Fulham.png", "Leeds": "assets/Leeds.png", "Liverpool": "assets/Liverpool.png", 
-    "Man City": "assets/Manchester_City.png", "Man United": "assets/Manchester_United.png", "Newcastle": "assets/Newcastle.png", 
-    "Nottingham": "assets/Nottingham.png", "Sunderland": "assets/Sunderland.png", "Tottenham": "assets/Tottenham.png", 
-    "West Ham": "assets/West_Ham.png", "Wolverhampton": "assets/Wolverhampton.png"
+     "Arsenal": "../assets/Arsenal.png", "Aston Villa": "../assets/Aston_Villa.png", "Bournemouth": "../assets/Bournemouth.png", 
+    "Brentford": "../assets/Brentford.png", "Brighton": "../assets/Brighton.png", "Burnley": "../assets/Burnley.png",
+    "Chelsea": "../assets/Chelsea.png", "Crystal Palace": "../assets/Crystal_Palace.png", "Everton": "../assets/Everton.png", 
+    "Fulham": "../assets/Fulham.png", "Leeds": "../assets/Leeds.png", "Liverpool": "../assets/Liverpool.png", 
+    "Man City": "../assets/Manchester_City.png", "Man United": "../assets/Manchester_United.png", "Newcastle": "../assets/Newcastle.png", 
+    "Nottingham": "../assets/Nottingham.png", "Sunderland": "../assets/Sunderland.png", "Tottenham": "../assets/Tottenham.png", 
+    "West Ham": "../assets/West_Ham.png", "Wolverhampton": "../assets/Wolverhampton.png"
 }
 
 # --- DEFINITIVE PNG Rendering Engine ---
