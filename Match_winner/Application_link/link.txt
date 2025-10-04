@@ -1,1 +1,1 @@
-https://akn-football-predictor.streamlit.app/
+https://akn-epl-football-predictor.streamlit.app/
