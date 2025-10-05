@@ -6,3 +6,4 @@ requests
 beautifulsoup4
 catboost
 lxml
+joblib
