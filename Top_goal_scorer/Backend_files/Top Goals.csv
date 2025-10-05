@@ -1,0 +1,325 @@
+Season,Rank,Player,Club,Goals,IsTop10,Position,Age,Appearances,Goals_prev_season,Assists,Penalty_Goals,Non-Penalty_Goals,Goals_per_90,Big_6_Club_Feature,Club_League_Rank,Club_Total_Goals,League_Goals_per_Match,Games_in_Season
+2023-24,1,Erling Haaland,Manchester City,27,1,Forward,23,31,36.0,6.0,1.0,26,0.85,1.0,1,96,2.83,38.0
+2023-24,2,Cole Palmer,Chelsea,22,1,Attacking Midfielder,22,33,3.0,11.0,9.0,13,0.61,1.0,6,77,2.83,38.0
+2023-24,3,Alexander Isak,Newcastle United,21,1,Forward,24,30,10.0,2.0,5.0,16,0.76,0.0,7,85,2.83,38.0
+2023-24,4,Ollie Watkins,Aston Villa,19,1,Forward,28,37,15.0,13.0,0.0,19,0.51,0.0,4,76,2.83,38.0
+2023-24,4,Dominic Solanke,AFC Bournemouth,19,1,Forward,26,38,6.0,3.0,1.0,18,0.5,0.0,12,54,2.83,38.0
+2023-24,6,Phil Foden,Manchester City,19,1,Winger,23,35,11.0,8.0,0.0,19,0.54,1.0,1,96,2.83,38.0
+2023-24,7,Mohamed Salah,Liverpool,18,1,Winger,31,32,19.0,10.0,5.0,13,0.56,1.0,3,86,2.83,38.0
+2023-24,8,Son Heung-min,Tottenham Hotspur,17,1,Winger,31,35,10.0,10.0,2.0,15,0.49,1.0,5,74,2.83,38.0
+2023-24,9,Jarrod Bowen,West Ham United,16,1,Winger,27,34,6.0,6.0,0.0,16,0.47,0.0,9,60,2.83,38.0
+2023-24,10,Jean-Philippe Mateta,Crystal Palace,16,1,Forward,26,35,2.0,5.0,3.0,13,0.46,0.0,10,57,2.83,38.0
+2022-23,1,Erling Haaland,Manchester City,36,1,Forward,22,35,,8.0,7.0,29,1.03,1.0,1,94,2.85,38.0
+2022-23,2,Harry Kane,Tottenham Hotspur,30,1,Forward,29,38,17.0,3.0,5.0,25,0.79,1.0,8,70,2.85,38.0
+2022-23,3,Ivan Toney,Brentford,20,1,Forward,26,33,12.0,4.0,7.0,13,0.61,0.0,9,58,2.85,38.0
+2022-23,4,Mohamed Salah,Liverpool,19,1,Winger,30,38,23.0,12.0,2.0,17,0.5,1.0,5,75,2.85,38.0
+2022-23,5,Callum Wilson,Newcastle United,18,1,Forward,31,31,8.0,4.0,3.0,15,0.58,0.0,4,68,2.85,38.0
+2022-23,6,Marcus Rashford,Manchester United,17,1,Forward,25,35,4.0,2.0,0.0,17,0.49,1.0,3,58,2.85,38.0
+2022-23,7,Gabriel Martinelli,Arsenal,15,1,Winger,21,36,6.0,5.0,0.0,15,0.42,1.0,2,88,2.85,38.0
+2022-23,8,Martin Ødegaard,Arsenal,15,1,Midfielder,24,37,7.0,6.0,0.0,15,0.41,1.0,2,88,2.85,38.0
+2022-23,9,Ollie Watkins,Aston Villa,15,1,Forward,27,37,11.0,6.0,1.0,14,0.41,0.0,7,51,2.85,38.0
+2022-23,10,Aleksandar Mitrović,Fulham,14,1,Forward,28,24,11.0,2.0,6.0,8,0.58,0.0,10,55,2.85,38.0
+2021-22,1,Mohamed Salah,Liverpool,23,1,Winger,29,35,22.0,13.0,6.0,17,0.66,1.0,2,94,2.82,38.0
+2021-22,1,Son Heung-min,Tottenham Hotspur,23,1,Winger,29,35,17.0,9.0,1.0,22,0.66,1.0,4,69,2.82,38.0
+2021-22,3,Cristiano Ronaldo,Man United,18,1,Forward,37,30,,3.0,3.0,15,0.6,1.0,6,57,2.82,38.0
+2021-22,4,Harry Kane,Tottenham Hotspur,17,1,Forward,28,37,23.0,9.0,4.0,13,0.46,1.0,4,69,2.82,38.0
+2021-22,5,Sadio Mané,Liverpool,16,1,Winger,30,34,16.0,1.0,0.0,16,0.53,1.0,2,94,2.82,38.0
+2021-22,6,Diogo Jota,Liverpool,15,1,Forward,25,35,9.0,4.0,0.0,15,0.42,1.0,2,94,2.82,38.0
+2021-22,6,Kevin De Bruyne,Man City,15,1,Midfielder,30,30,6.0,8.0,0.0,15,0.5,1.0,1,99,2.82,38.0
+2021-22,6,Jamie Vardy,Leicester City,15,1,Forward,35,25,15.0,4.0,2.0,13,0.6,0.0,8,62,2.82,38.0
+2021-22,9,Wilfried Zaha,Crystal Palace,14,1,Winger,29,33,11.0,1.0,1.0,13,0.42,0.0,12,50,2.82,38.0
+2021-22,10,Raheem Sterling,Man City,13,1,Winger,27,30,10.0,5.0,2.0,11,0.43,1.0,1,99,2.82,38.0
+2020-21,1,Harry Kane,Tottenham Hotspur,23,1,Forward,27,35,18.0,14.0,4.0,19,0.66,1.0,7,68,2.77,38.0
+2020-21,2,Mohamed Salah,Liverpool,22,1,Winger,28,37,19.0,5.0,6.0,16,0.59,1.0,3,68,2.77,38.0
+2020-21,3,Bruno Fernandes,Man United,18,1,Midfielder,26,37,8.0,12.0,9.0,9,0.49,1.0,2,73,2.77,38.0
+2020-21,4,Patrick Bamford,Leeds United,17,1,Forward,27,38,1.0,7.0,1.0,16,0.45,0.0,9,62,2.77,38.0
+2020-21,4,Son Heung-min,Tottenham Hotspur,17,1,Winger,28,37,11.0,10.0,1.0,16,0.46,1.0,7,68,2.77,38.0
+2020-21,6,Dominic Calvert-Lewin,Everton,16,1,Forward,24,33,13.0,0.0,5.0,11,0.52,0.0,10,47,2.77,38.0
+2020-21,7,Ollie Watkins,Aston Villa,14,1,Forward,25,37,,5.0,2.0,12,0.38,0.0,11,55,2.77,38.0
+2020-21,8,Alexandre Lacazette,Arsenal,13,1,Forward,29,31,10.0,2.0,3.0,10,0.42,1.0,8,55,2.77,38.0
+2020-21,8,İlkay Gündoğan,Manchester City,13,1,Midfielder,30,28,1.0,2.0,1.0,12,0.46,1.0,1,83,2.77,38.0
+2020-21,10,Callum Wilson,Newcastle United,12,1,Forward,29,26,,5.0,4.0,8,0.46,0.0,12,46,2.77,38.0
+2019-20,1,Jamie Vardy,Leicester City,23,1,Forward,33,35,18.0,4.0,5.0,18,0.66,0.0,5,67,2.72,38.0
+2019-20,2,Pierre-Emerick Aubameyang,Arsenal,22,1,Forward,31,36,22.0,3.0,2.0,20,0.61,1.0,8,56,2.72,38.0
+2019-20,2,Danny Ings,Southampton,22,1,Forward,28,38,7.0,2.0,1.0,21,0.58,0.0,11,51,2.72,38.0
+2019-20,4,Raheem Sterling,Man City,20,1,Winger,25,33,17.0,1.0,0.0,20,0.61,1.0,2,102,2.72,38.0
+2019-20,5,Mohamed Salah,Liverpool,19,1,Winger,28,34,22.0,10.0,1.0,18,0.56,1.0,1,85,2.72,38.0
+2019-20,6,Harry Kane,Tottenham Hotspur,18,1,Forward,27,29,17.0,2.0,3.0,15,0.62,1.0,6,61,2.72,38.0
+2019-20,6,Sadio Mané,Liverpool,18,1,Winger,28,35,22.0,7.0,0.0,18,0.51,1.0,1,85,2.72,38.0
+2019-20,8,Anthony Martial,Man United,17,1,Forward,24,32,10.0,4.0,1.0,16,0.53,1.0,3,66,2.72,38.0
+2019-20,8,Marcus Rashford,Man United,17,1,Forward,22,31,10.0,2.0,5.0,12,0.55,1.0,3,66,2.72,38.0
+2019-20,8,Raúl Jiménez,Wolverhampton,17,1,Forward,29,38,13.0,6.0,2.0,15,0.45,0.0,7,51,2.72,38.0
+2018-19,1,Pierre-Emerick Aubameyang,Arsenal,22,1,Forward,29,36,,5.0,4.0,18,0.61,1.0,5,73,2.82,38.0
+2018-19,1,Sadio Mané,Liverpool,22,1,Winger,27,36,10.0,1.0,0.0,22,0.61,1.0,2,89,2.82,38.0
+2018-19,1,Mohamed Salah,Liverpool,22,1,Winger,26,38,32.0,10.0,3.0,19,0.58,1.0,2,89,2.82,38.0
+2018-19,4,Sergio Agüero,Man City,21,1,Forward,30,33,21.0,7.0,2.0,19,0.64,1.0,1,95,2.82,38.0
+2018-19,5,Jamie Vardy,Leicester City,18,1,Forward,32,34,20.0,4.0,2.0,16,0.53,0.0,9,51,2.82,38.0
+2018-19,6,Raheem Sterling,Man City,17,1,Winger,24,34,18.0,10.0,0.0,17,0.5,1.0,1,95,2.82,38.0
+2018-19,6,Harry Kane,Tottenham Hotspur,17,1,Forward,25,28,30.0,2.0,4.0,13,0.61,1.0,4,67,2.82,38.0
+2018-19,8,Eden Hazard,Chelsea,16,1,Winger,28,37,12.0,15.0,5.0,11,0.43,1.0,3,63,2.82,38.0
+2018-19,9,Richarlison,Everton,13,1,Forward,22,35,,,0.0,13,0.37,0.0,8,54,2.82,38.0
+2018-19,9,Gylfi Sigurðsson,Everton,13,1,Midfielder,29,38,4.0,6.0,0.0,13,0.34,0.0,8,54,2.82,38.0
+2017-18,1,Mohamed Salah,Liverpool,32,1,Winger,25,36,,,1.0,31,0.89,1.0,4,84,2.68,38.0
+2017-18,2,Harry Kane,Tottenham Hotspur,30,1,Forward,24,37,29.0,,0.0,30,0.81,1.0,3,74,2.68,38.0
+2017-18,3,Sergio Agüero,Man City,21,1,Forward,29,25,20.0,,0.0,21,0.84,1.0,1,106,2.68,38.0
+2017-18,4,Jamie Vardy,Leicester City,20,1,Forward,31,37,13.0,,6.0,14,0.54,0.0,9,56,2.68,38.0
+2017-18,5,Raheem Sterling,Man City,18,1,Winger,23,33,7.0,,0.0,18,0.55,1.0,1,106,2.68,38.0
+2017-18,6,Romelu Lukaku,Man United,16,1,Forward,24,34,25.0,,1.0,15,0.47,1.0,2,68,2.68,38.0
+2017-18,7,Roberto Firmino,Liverpool,15,1,Forward,26,37,11.0,,0.0,15,0.41,1.0,4,84,2.68,38.0
+2017-18,8,Gabriel Jesus,Man City,13,1,Forward,21,29,11.0,,0.0,13,0.45,1.0,1,106,2.68,38.0
+2017-18,9,Eden Hazard,Chelsea,12,1,Winger,27,34,16.0,,0.0,12,0.35,1.0,5,62,2.68,38.0
+2017-18,10,Álvaro Morata,Chelsea,11,1,Forward,25,31,,,0.0,11,0.35,1.0,5,62,2.68,38.0
+2016-17,1,Harry Kane,Tottenham Hotspur,29,1,Forward,23,30,25.0,7.0,5.0,24,0.97,1.0,2,86,2.8,38.0
+2016-17,2,Romelu Lukaku,Everton,25,1,Forward,24,37,18.0,6.0,2.0,23,0.68,0.0,7,62,2.8,38.0
+2016-17,3,Alexis Sánchez,Arsenal,24,1,Forward,28,38,13.0,10.0,0.0,24,0.63,1.0,5,77,2.8,38.0
+2016-17,4,Sergio Agüero,Manchester City,20,1,Forward,28,31,24.0,3.0,0.0,20,0.65,1.0,3,80,2.8,38.0
+2016-17,4,Diego Costa,Chelsea,20,1,Forward,28,35,12.0,7.0,1.0,19,0.57,1.0,1,85,2.8,38.0
+2016-17,6,Zlatan Ibrahimović,Manchester United,17,1,Forward,35,28,,,0.0,17,0.61,1.0,6,54,2.8,38.0
+2016-17,7,Dele Alli,Tottenham Hotspur,18,1,Midfielder,21,37,10.0,8.0,0.0,18,0.49,1.0,2,86,2.8,38.0
+2016-17,8,Joshua King,AFC Bournemouth,16,1,Forward,25,36,,,0.0,16,0.44,0.0,9,55,2.8,38.0
+2016-17,8,Eden Hazard,Chelsea,16,1,Winger,26,36,,,0.0,16,0.44,1.0,1,85,2.8,38.0
+2016-17,10,Christian Benteke,Crystal Palace,15,1,Forward,26,36,9.0,2.0,0.0,15,0.42,0.0,14,50,2.8,38.0
+2015-16,1,Harry Kane,Tottenham Hotspur,25,1,Forward,22,38,21.0,1.0,5.0,20,0.66,1.0,3,69,2.7,38.0
+2015-16,2,Sergio Agüero,Manchester City,24,1,Forward,27,30,26.0,2.0,0.0,24,0.8,1.0,4,71,2.7,38.0
+2015-16,2,Jamie Vardy,Leicester City,24,1,Forward,29,36,5.0,6.0,5.0,19,0.66,0.0,1,68,2.7,38.0
+2015-16,4,Romelu Lukaku,Everton,18,1,Forward,23,37,10.0,,0.0,18,0.48,0.0,11,59,2.7,38.0
+2015-16,5,Riyad Mahrez,Leicester City,17,1,Winger,25,37,4.0,11.0,0.0,17,0.46,0.0,1,68,2.7,38.0
+2015-16,6,Olivier Giroud,Arsenal,16,1,Forward,29,38,14.0,6.0,1.0,15,0.42,1.0,2,65,2.7,38.0
+2015-16,7,Jermain Defoe,Sunderland,15,1,Forward,33,33,4.0,,0.0,15,0.45,0.0,17,48,2.7,38.0
+2015-16,8,Troy Deeney,Watford,13,1,Forward,27,38,1.0,,1.0,12,0.34,0.0,13,40,2.7,38.0
+2015-16,8,Alexis Sánchez,Arsenal,13,1,Forward,27,30,16.0,,0.0,13,0.43,1.0,2,65,2.7,38.0
+2015-16,10,Diego Costa,Chelsea,12,1,Forward,27,28,20.0,,0.0,12,0.43,1.0,10,59,2.7,38.0
+2014-15,1,Sergio Agüero,Manchester City,26,1,Forward,26,33,17.0,,0.0,26,0.79,1.0,2,83,2.57,38.0
+2014-15,2,Harry Kane,Tottenham Hotspur,21,1,Forward,21,34,,,0.0,21,0.62,1.0,5,58,2.57,38.0
+2014-15,3,Diego Costa,Chelsea,20,1,Forward,26,26,,,0.0,20,0.77,1.0,1,73,2.57,38.0
+2014-15,4,Charlie Austin,Queens Park Rangers,18,1,Forward,25,35,,,0.0,18,0.51,0.0,20,42,2.57,38.0
+2014-15,5,Alexis Sánchez,Arsenal,16,1,Forward,26,35,,,0.0,16,0.46,1.0,3,71,2.57,38.0
+2014-15,6,Saido Berahino,West Brom,14,1,Forward,21,38,,,0.0,14,0.37,0.0,13,38,2.57,38.0
+2014-15,6,Olivier Giroud,Arsenal,14,1,Forward,28,27,16.0,,0.0,14,0.52,1.0,3,71,2.57,38.0
+2014-15,8,Christian Benteke,Aston Villa,13,1,Forward,24,29,19.0,,0.0,13,0.45,0.0,17,31,2.57,38.0
+2014-15,8,Eden Hazard,Chelsea,14,1,Winger,24,38,14.0,,0.0,14,0.37,1.0,1,73,2.57,38.0
+2014-15,10,Papiss Cissé,Newcastle United,11,1,Forward,29,22,,,0.0,11,0.5,0.0,15,40,2.57,38.0
+2013-14,1,Luis Suárez,Liverpool,31,1,Forward,27,33,23.0,12.0,6.0,25,0.94,1.0,2,101,2.77,38.0
+2013-14,2,Daniel Sturridge,Liverpool,21,1,Forward,24,29,11.0,7.0,1.0,20,0.72,1.0,2,101,2.77,38.0
+2013-14,3,Yaya Touré,Manchester City,20,1,Midfielder,30,35,7.0,9.0,6.0,14,0.57,1.0,1,102,2.77,38.0
+2013-14,4,Sergio Agüero,Manchester City,17,1,Forward,25,23,12.0,,0.0,17,0.74,1.0,1,102,2.77,38.0
+2013-14,4,Wayne Rooney,Man United,17,1,Forward,28,29,12.0,10.0,1.0,16,0.59,1.0,7,64,2.77,38.0
+2013-14,6,Olivier Giroud,Arsenal,16,1,Forward,27,36,11.0,9.0,2.0,14,0.44,1.0,4,68,2.77,38.0
+2013-14,7,Jay Rodriguez,Southampton,15,1,Forward,24,33,,,0.0,15,0.45,0.0,8,54,2.77,38.0
+2013-14,8,Loïc Rémy,Newcastle United,14,1,Forward,27,26,,,0.0,14,0.54,0.0,10,43,2.77,38.0
+2013-14,8,Eden Hazard,Chelsea,14,1,Winger,23,35,9.0,7.0,2.0,12,0.4,1.0,3,71,2.77,38.0
+2013-14,10,Romelu Lukaku,Everton,15,1,Forward,21,31,17.0,1.0,0.0,15,0.48,0.0,5,61,2.77,38.0
+2012-13,1,Robin van Persie,Man United,26,1,Forward,29,38,30.0,10.0,3.0,23,0.68,1.0,1,86,2.85,38.0
+2012-13,2,Luis Suárez,Liverpool,23,1,Forward,26,33,11.0,5.0,1.0,22,0.7,1.0,7,71,2.85,38.0
+2012-13,3,Gareth Bale,Tottenham Hotspur,21,1,Winger,23,33,10.0,4.0,0.0,21,0.64,1.0,5,66,2.85,38.0
+2012-13,4,Christian Benteke,Aston Villa,19,1,Forward,22,34,,,0.0,19,0.56,0.0,15,47,2.85,38.0
+2012-13,5,Michu,Swansea City,18,1,Forward,27,35,,,0.0,18,0.51,0.0,9,47,2.85,38.0
+2012-13,6,Romelu Lukaku,West Brom,17,1,Forward,20,35,,,0.0,17,0.49,0.0,8,52,2.85,38.0
+2012-13,7,Rickie Lambert,Southampton,15,1,Forward,31,38,,,0.0,15,0.39,0.0,14,49,2.85,38.0
+2012-13,7,Frank Lampard,Chelsea,15,1,Midfielder,34,29,1.0,,0.0,15,0.52,1.0,3,75,2.85,38.0
+2012-13,9,Dimitar Berbatov,Fulham,14,1,Forward,32,33,12.0,,0.0,14,0.42,0.0,12,50,2.85,38.0
+2012-13,9,Theo Walcott,Arsenal,14,1,Winger,24,32,8.0,10.0,0.0,14,0.44,1.0,4,72,2.85,38.0
+2011-12-01 00:00:00,1,Robin van Persie,Arsenal,30,1,Forward,28,38,18.0,1.0,1.0,29,0.79,1.0,3,74,2.8,38.0
+2011-12-01 00:00:00,2,Wayne Rooney,Man United,27,1,Forward,26,34,11.0,5.0,1.0,26,0.79,1.0,2,89,2.8,38.0
+2011-12-01 00:00:00,3,Sergio Agüero,Manchester City,23,1,Forward,23,34,,,1.0,22,0.68,1.0,1,93,2.8,38.0
+2011-12-01 00:00:00,4,Clint Dempsey,Fulham,17,1,Forward,29,37,12.0,6.0,1.0,16,0.46,0.0,9,56,2.8,38.0
+2011-12-01 00:00:00,4,Demba Ba,Newcastle United,16,1,Forward,26,34,,,0.0,16,0.47,0.0,5,56,2.8,38.0
+2011-12-01 00:00:00,6,Yakubu Aiyegbeni,Blackburn Rovers,17,1,Forward,29,30,12.0,,1.0,16,0.57,0.0,19,48,2.8,38.0
+2011-12-01 00:00:00,7,Papiss Cissé,Newcastle United,13,1,Forward,26,14,,,0.0,13,0.93,0.0,5,56,2.8,38.0
+2011-12-01 00:00:00,8,Grant Holt,Norwich City,10,1,Forward,31,36,,,0.0,10,0.28,0.0,12,52,2.8,38.0
+2011-12-01 00:00:00,9,Edin Džeko,Manchester City,14,1,Forward,26,30,12.0,2.0,0.0,14,0.47,1.0,1,93,2.8,38.0
+2011-12-01 00:00:00,10,Emmanuel Adebayor,Tottenham Hotspur,11,1,Forward,28,33,11.0,11.0,0.0,11,0.33,1.0,4,66,2.8,38.0
+2010-11-01 00:00:00,1,Carlos Tevez,Man City,20,1,Forward,26,31,23.0,5.0,1.0,19,0.65,1.0,3,60,2.8,38.0
+2010-11-01 00:00:00,1,Dimitar Berbatov,Man United,20,1,Forward,29,32,12.0,,0.0,20,0.63,1.0,1,78,2.8,38.0
+2010-11-01 00:00:00,3,Robin van Persie,Arsenal,18,1,Forward,27,25,10.0,1.0,1.0,17,0.72,1.0,4,72,2.8,38.0
+2010-11-01 00:00:00,4,Darren Bent,Sunderland/Aston Villa,17,1,Forward,26,34,14.0,3.0,0.0,17,0.5,0.0,9,47,2.8,38.0
+2010-11-01 00:00:00,5,Peter Odemwingie,West Brom,15,1,Forward,29,32,,,0.0,15,0.47,0.0,11,56,2.8,38.0
+2010-11-01 00:00:00,6,Andy Carroll,Newcastle/Liverpool,13,1,Forward,22,29,,,0.0,13,0.45,0.0,12,56,2.8,38.0
+2010-11-01 00:00:00,6,Javier Hernández,Man United,13,1,Forward,22,27,,,0.0,13,0.48,1.0,1,78,2.8,38.0
+2010-11-01 00:00:00,6,Rafael van der Vaart,Tottenham Hotspur,13,1,Midfielder,28,28,,,0.0,13,0.46,1.0,5,55,2.8,38.0
+2010-11-01 00:00:00,9,DJ Campbell,Blackpool,11,1,Forward,29,29,,,0.0,11,0.38,0.0,19,55,2.8,38.0
+2010-11-01 00:00:00,10,Kevin Davies,Bolton Wanderers,10,1,Forward,34,35,8.0,,0.0,10,0.29,0.0,14,52,2.8,38.0
+2009-10-01 00:00:00,1,Didier Drogba,Chelsea,29,1,Forward,31,32,10.0,10.0,1.0,28,0.91,1.0,1,103,2.77,38.0
+2009-10-01 00:00:00,2,Wayne Rooney,Man United,26,1,Forward,24,32,16.0,4.0,1.0,25,0.81,1.0,2,86,2.77,38.0
+2009-10-01 00:00:00,3,Darren Bent,Sunderland,24,1,Forward,26,38,12.0,,0.0,24,0.63,0.0,13,48,2.77,38.0
+2009-10-01 00:00:00,4,Carlos Tevez,Manchester City,23,1,Forward,26,35,14.0,7.0,0.0,23,0.66,1.0,5,73,2.77,38.0
+2009-10-01 00:00:00,5,Frank Lampard,Chelsea,22,1,Midfielder,32,36,12.0,14.0,1.0,21,0.61,1.0,1,103,2.77,38.0
+2009-10-01 00:00:00,6,Fernando Torres,Liverpool,18,1,Forward,26,22,14.0,4.0,1.0,17,0.82,1.0,7,61,2.77,38.0
+2009-10-01 00:00:00,6,Jermain Defoe,Tottenham Hotspur,18,1,Forward,27,34,10.0,,0.0,18,0.53,1.0,4,67,2.77,38.0
+2009-10-01 00:00:00,8,Florent Malouda,Chelsea,15,1,Midfielder,29,33,6.0,,0.0,15,0.45,1.0,1,103,2.77,38.0
+2009-10-01 00:00:00,9,Emmanuel Adebayor,Manchester City,14,1,Forward,26,26,10.0,,0.0,14,0.54,1.0,5,73,2.77,38.0
+2009-10-01 00:00:00,9,Darren Bent,Sunderland,14,1,Forward,26,38,12.0,,0.0,14,0.37,0.0,13,48,2.77,38.0
+2008-09-01 00:00:00,1,Nicolas Anelka,Chelsea,19,1,Forward,30,37,11.0,2.0,0.0,19,0.51,1.0,3,68,2.52,38.0
+2008-09-01 00:00:00,2,Cristiano Ronaldo,Man United,18,1,Forward,24,33,31.0,,0.0,18,0.55,1.0,1,68,2.52,38.0
+2008-09-01 00:00:00,3,Steven Gerrard,Liverpool,16,1,Midfielder,29,31,,,0.0,16,0.52,1.0,2,77,2.52,38.0
+2008-09-01 00:00:00,4,Robinho,Manchester City,14,1,Forward,25,33,,,0.0,14,0.42,1.0,10,58,2.52,38.0
+2008-09-01 00:00:00,4,Fernando Torres,Liverpool,14,1,Forward,25,24,24.0,,0.0,14,0.58,1.0,2,77,2.52,38.0
+2008-09-01 00:00:00,6,Gabriel Agbonlahor,Aston Villa,13,1,Forward,22,36,,,0.0,13,0.36,0.0,6,54,2.52,38.0
+2008-09-01 00:00:00,6,Frank Lampard,Chelsea,12,1,Midfielder,31,37,10.0,,0.0,12,0.32,1.0,3,68,2.52,38.0
+2008-09-01 00:00:00,8,Darren Bent,Tottenham Hotspur,12,1,Forward,25,33,13.0,,0.0,12,0.36,1.0,8,45,2.52,38.0
+2008-09-01 00:00:00,9,Robin van Persie,Arsenal,11,1,Forward,25,28,,,0.0,11,0.39,1.0,4,68,2.52,38.0
+2008-09-01 00:00:00,10,Carlton Cole,West Ham United,10,1,Forward,25,27,,,0.0,10,0.37,0.0,9,42,2.52,38.0
+2007-08-01 00:00:00,1,Cristiano Ronaldo,Man United,31,1,Forward,23,34,17.0,,0.0,31,0.91,1.0,1,80,2.68,38.0
+2007-08-01 00:00:00,2,Fernando Torres,Liverpool,24,1,Forward,24,33,,,0.0,24,0.73,1.0,4,67,2.68,38.0
+2007-08-01 00:00:00,2,Emmanuel Adebayor,Arsenal,24,1,Forward,24,36,,,0.0,24,0.67,1.0,3,74,2.68,38.0
+2007-08-01 00:00:00,4,Roque Santa Cruz,Blackburn Rovers,19,1,Forward,27,37,,,0.0,19,0.51,0.0,7,50,2.68,38.0
+2007-08-01 00:00:00,5,Carlos Tevez,Man United,14,1,Forward,24,34,,,0.0,14,0.41,1.0,1,80,2.68,38.0
+2007-08-01 00:00:00,6,Benjani Mwaruwari,Portsmouth/Man City,15,1,Forward,29,32,,,0.0,15,0.47,0.0,8,48,2.68,38.0
+2007-08-01 00:00:00,6,Dimitar Berbatov,Tottenham Hotspur,15,1,Forward,27,36,12.0,,0.0,15,0.42,1.0,11,66,2.68,38.0
+2007-08-01 00:00:00,6,Robbie Keane,Tottenham Hotspur,15,1,Forward,27,36,16.0,,0.0,15,0.42,1.0,11,66,2.68,38.0
+2007-08-01 00:00:00,6,Yakubu Aiyegbeni,Everton,15,1,Forward,25,37,12.0,,0.0,15,0.41,0.0,5,55,2.68,38.0
+2007-08-01 00:00:00,10,John Carew,Aston Villa,13,1,Forward,28,32,,,0.0,13,0.41,0.0,6,71,2.68,38.0
+2006-07-01 00:00:00,1,Didier Drogba,Chelsea,20,1,Forward,29,36,12.0,,0.0,20,0.56,1.0,2,64,2.55,38.0
+2006-07-01 00:00:00,2,Benni McCarthy,Blackburn Rovers,18,1,Forward,29,36,,,0.0,18,0.5,0.0,10,52,2.55,38.0
+2006-07-01 00:00:00,3,Cristiano Ronaldo,Man United,17,1,Forward,22,34,,,0.0,17,0.5,1.0,1,83,2.55,38.0
+2006-07-01 00:00:00,4,Wayne Rooney,Man United,14,1,Forward,21,35,16.0,,0.0,14,0.4,1.0,1,83,2.55,38.0
+2006-07-01 00:00:00,4,Mark Viduka,Middlesbrough,14,1,Forward,31,29,,,0.0,14,0.48,0.0,12,44,2.55,38.0
+2006-07-01 00:00:00,6,Darren Bent,Charlton Athletic,13,1,Forward,23,32,18.0,,0.0,13,0.41,0.0,19,34,2.55,38.0
+2006-07-01 00:00:00,6,Kevin Doyle,Reading,13,1,Forward,23,32,,,0.0,13,0.41,0.0,8,52,2.55,38.0
+2006-07-01 00:00:00,8,Yakubu Aiyegbeni,Middlesbrough,12,1,Forward,24,37,12.0,,0.0,12,0.32,0.0,12,44,2.55,38.0
+2006-07-01 00:00:00,9,Obafemi Martins,Newcastle United,11,1,Forward,22,33,,,0.0,11,0.33,0.0,13,38,2.55,38.0
+2006-07-01 00:00:00,10,Andy Cole,Portsmouth,10,1,Forward,35,18,10.0,,0.0,10,0.56,0.0,9,45,2.55,38.0
+2005-06-01 00:00:00,1,Thierry Henry,Arsenal,27,1,Forward,28,32,25.0,,0.0,27,0.84,1.0,4,68,2.48,38.0
+2005-06-01 00:00:00,2,Ruud van Nistelrooy,Man United,21,1,Forward,29,36,15.0,,0.0,21,0.58,1.0,2,72,2.48,38.0
+2005-06-01 00:00:00,3,Darren Bent,Charlton Athletic,18,1,Forward,21,36,,,0.0,18,0.5,0.0,13,44,2.48,38.0
+2005-06-01 00:00:00,4,Frank Lampard,Chelsea,16,1,Midfielder,27,35,13.0,,0.0,16,0.46,1.0,1,72,2.48,38.0
+2005-06-01 00:00:00,4,Robbie Keane,Tottenham Hotspur,16,1,Forward,25,36,14.0,,0.0,16,0.44,1.0,5,53,2.48,38.0
+2005-06-01 00:00:00,4,Wayne Rooney,Man United,16,1,Forward,20,36,11.0,,0.0,16,0.44,1.0,2,72,2.48,38.0
+2005-06-01 00:00:00,7,Marlon Harewood,West Ham United,14,1,Forward,26,38,,,0.0,14,0.37,0.0,9,52,2.48,38.0
+2005-06-01 00:00:00,8,Didier Drogba,Chelsea,12,1,Forward,28,38,10.0,,0.0,12,0.32,1.0,1,72,2.48,38.0
+2005-06-01 00:00:00,8,Dimitar Berbatov,Tottenham Hotspur,12,1,Forward,25,36,,,0.0,12,0.33,1.0,5,53,2.48,38.0
+2005-06-01 00:00:00,10,Robbie Fowler,Manchester City,10,1,Forward,30,13,,,0.0,10,0.77,1.0,15,38,2.48,38.0
+2004-05-01 00:00:00,1,Thierry Henry,Arsenal,25,1,Forward,27,32,30.0,,0.0,25,0.78,1.0,2,87,2.48,38.0
+2004-05-01 00:00:00,2,Andrew Johnson,Crystal Palace,21,1,Forward,24,37,,,0.0,21,0.57,0.0,18,41,2.48,38.0
+2004-05-01 00:00:00,3,Robert Pires,Arsenal,14,1,Midfielder,31,33,14.0,,0.0,14,0.42,1.0,2,87,2.48,38.0
+2004-05-01 00:00:00,4,Jermain Defoe,Tottenham Hotspur,13,1,Forward,22,35,,,0.0,13,0.37,1.0,9,47,2.48,38.0
+2004-05-01 00:00:00,4,Frank Lampard,Chelsea,13,1,Midfielder,26,38,10.0,,0.0,13,0.34,1.0,1,72,2.48,38.0
+2004-05-01 00:00:00,6,Yakubu Aiyegbeni,Portsmouth,12,1,Forward,22,37,15.0,,0.0,12,0.32,0.0,16,45,2.48,38.0
+2004-05-01 00:00:00,7,Wayne Rooney,Manchester United,11,1,Forward,19,29,,,0.0,11,0.38,1.0,3,58,2.48,38.0
+2004-05-01 00:00:00,8,Didier Drogba,Chelsea,10,1,Forward,27,26,,,0.0,10,0.38,1.0,1,72,2.48,38.0
+2004-05-01 00:00:00,8,Kevin Phillips,Southampton,10,1,Forward,31,38,14.0,,0.0,10,0.26,0.0,20,45,2.48,38.0
+2004-05-01 00:00:00,10,Milan Baroš,Liverpool,9,1,Forward,23,26,,,0.0,9,0.35,1.0,5,52,2.48,38.0
+2003-04-01 00:00:00,1,Thierry Henry,Arsenal,30,1,Forward,26,37,24.0,,0.0,30,0.81,1.0,1,73,2.58,38.0
+2003-04-01 00:00:00,2,Alan Shearer,Newcastle United,22,1,Forward,33,37,17.0,,0.0,22,0.59,0.0,5,52,2.58,38.0
+2003-04-01 00:00:00,3,Louis Saha,Fulham/Man United,20,1,Forward,25,32,,,0.0,20,0.62,0.0,9,52,2.58,38.0
+2003-04-01 00:00:00,4,Mikaël Forssell,Birmingham City,17,1,Forward,23,32,,,0.0,17,0.53,0.0,10,43,2.58,38.0
+2003-04-01 00:00:00,5,Juan Pablo Ángel,Aston Villa,16,1,Forward,28,34,,,0.0,16,0.47,0.0,6,44,2.58,38.0
+2003-04-01 00:00:00,5,Michael Owen,Liverpool,16,1,Forward,24,29,19.0,,0.0,16,0.55,1.0,4,55,2.58,38.0
+2003-04-01 00:00:00,7,Ruud van Nistelrooy,Manchester United,15,1,Forward,27,32,25.0,,0.0,15,0.47,1.0,2,64,2.58,38.0
+2003-04-01 00:00:00,7,Yakubu Aiyegbeni,Portsmouth,15,1,Forward,21,37,,,0.0,15,0.41,0.0,13,47,2.58,38.0
+2003-04-01 00:00:00,9,Robbie Keane,Tottenham Hotspur,14,1,Forward,23,34,,,0.0,14,0.41,1.0,14,47,2.58,38.0
+2003-04-01 00:00:00,9,James Beattie,Southampton,14,1,Forward,26,37,23.0,,0.0,14,0.38,0.0,12,50,2.58,38.0
+2002-03-01 00:00:00,1,Ruud van Nistelrooy,Manchester United,25,1,Forward,26,34,17.0,,0.0,25,0.74,1.0,1,74,2.58,38.0
+2002-03-01 00:00:00,2,Thierry Henry,Arsenal,24,1,Forward,25,37,24.0,,0.0,24,0.65,1.0,2,85,2.58,38.0
+2002-03-01 00:00:00,3,James Beattie,Southampton,23,1,Forward,25,38,11.0,,0.0,23,0.61,0.0,8,48,2.58,38.0
+2002-03-01 00:00:00,4,Mark Viduka,Leeds United,20,1,Forward,27,33,17.0,,0.0,20,0.61,0.0,15,58,2.58,38.0
+2002-03-01 00:00:00,5,Michael Owen,Liverpool,19,1,Forward,23,35,19.0,,0.0,19,0.54,1.0,5,61,2.58,38.0
+2002-03-01 00:00:00,6,Alan Shearer,Newcastle United,17,1,Forward,32,35,23.0,,0.0,17,0.49,0.0,3,63,2.58,38.0
+2002-03-01 00:00:00,7,Nicolas Anelka,Manchester City,15,1,Forward,24,38,12.0,,0.0,15,0.39,1.0,9,52,2.58,38.0
+2002-03-01 00:00:00,8,Harry Kewell,Leeds United,14,1,Winger,24,31,,,0.0,14,0.45,0.0,15,58,2.58,38.0
+2002-03-01 00:00:00,8,Robert Pires,Arsenal,14,1,Midfielder,29,26,16.0,,0.0,14,0.54,1.0,2,85,2.58,38.0
+2002-03-01 00:00:00,8,Gianfranco Zola,Chelsea,14,1,Forward,36,38,14.0,,0.0,14,0.37,1.0,4,63,2.58,38.0
+2001-02-01 00:00:00,1,Thierry Henry,Arsenal,24,1,Forward,24,33,17.0,,0.0,24,0.73,1.0,1,79,2.65,38.0
+2001-02-01 00:00:00,2,Alan Shearer,Newcastle United,23,1,Forward,31,37,14.0,,0.0,23,0.62,0.0,4,74,2.65,38.0
+2001-02-01 00:00:00,2,Jimmy Floyd Hasselbaink,Chelsea,23,1,Forward,29,35,23.0,,0.0,23,0.66,1.0,6,66,2.65,38.0
+2001-02-01 00:00:00,4,Michael Owen,Liverpool,19,1,Forward,22,29,16.0,,0.0,19,0.66,1.0,2,67,2.65,38.0
+2001-02-01 00:00:00,5,Ruud van Nistelrooy,Manchester United,17,1,Forward,25,32,,,0.0,17,0.53,1.0,3,87,2.65,38.0
+2001-02-01 00:00:00,5,Ole Gunnar Solskjær,Manchester United,17,1,Forward,28,31,10.0,,0.0,17,0.55,1.0,3,87,2.65,38.0
+2001-02-01 00:00:00,7,Gianfranco Zola,Chelsea,14,1,Forward,35,30,9.0,,0.0,14,0.47,1.0,6,66,2.65,38.0
+2001-02-01 00:00:00,7,Paul Scholes,Manchester United,14,1,Midfielder,27,35,6.0,,0.0,14,0.37,1.0,3,87,2.65,38.0
+2001-02-01 00:00:00,9,Dion Dublin,Aston Villa,13,1,Forward,33,37,,,0.0,13,0.35,0.0,8,46,2.65,38.0
+2001-02-01 00:00:00,10,Andy Cole,Blackburn Rovers,12,1,Forward,30,15,19.0,,0.0,12,0.8,0.0,10,55,2.65,38.0
+2000-01-01 00:00:00,1,Jimmy Floyd Hasselbaink,Chelsea,23,1,Forward,29,35,18.0,,0.0,23,0.66,1.0,6,57,2.54,38.0
+2000-01-01 00:00:00,2,Marcus Stewart,Ipswich Town,19,1,Forward,28,34,,,0.0,19,0.56,0.0,5,54,2.54,38.0
+2000-01-01 00:00:00,3,Thierry Henry,Arsenal,17,1,Forward,23,35,17.0,,0.0,17,0.49,1.0,2,63,2.54,38.0
+2000-01-01 00:00:00,3,Mark Viduka,Leeds United,17,1,Forward,25,34,,,0.0,17,0.5,0.0,4,66,2.54,38.0
+2000-01-01 00:00:00,5,Michael Owen,Liverpool,16,1,Forward,21,28,18.0,,0.0,16,0.57,1.0,3,71,2.54,38.0
+2000-01-01 00:00:00,6,Teddy Sheringham,Manchester United,15,1,Forward,35,29,14.0,,0.0,15,0.52,1.0,1,79,2.54,38.0
+2000-01-01 00:00:00,7,Emile Heskey,Liverpool,14,1,Forward,23,36,,,0.0,14,0.39,1.0,3,71,2.54,38.0
+2000-01-01 00:00:00,7,Kevin Phillips,Sunderland,14,1,Forward,27,34,30.0,,0.0,14,0.41,0.0,7,46,2.54,38.0
+2000-01-01 00:00:00,9,Alen Bokšić,Middlesbrough,12,1,Forward,31,28,,,0.0,12,0.43,0.0,14,44,2.54,38.0
+2000-01-01 00:00:00,10,James Beattie,Southampton,11,1,Forward,23,36,,,0.0,11,0.31,0.0,10,40,2.54,38.0
+1999-00,1,Kevin Phillips,Sunderland,30,1,Forward,26,36,,,0.0,30,0.83,0.0,7,57,2.52,38.0
+1999-00,2,Alan Shearer,Newcastle United,23,1,Forward,29,37,14.0,,0.0,23,0.62,0.0,11,63,2.52,38.0
+1999-00,3,Dwight Yorke,Manchester United,20,1,Forward,28,32,18.0,,0.0,20,0.63,1.0,1,97,2.52,38.0
+1999-00,4,Michael Bridges,Leeds United,19,1,Forward,21,37,,,0.0,19,0.51,0.0,3,58,2.52,38.0
+1999-00,4,Andy Cole,Manchester United,19,1,Forward,28,28,17.0,,0.0,19,0.68,1.0,1,97,2.52,38.0
+1999-00,6,Thierry Henry,Arsenal,17,1,Forward,22,31,,,0.0,17,0.55,1.0,2,73,2.52,38.0
+1999-00,7,Paolo Di Canio,West Ham United,16,1,Forward,31,30,,,0.0,16,0.53,0.0,9,52,2.52,38.0
+1999-00,8,Chris Armstrong,Tottenham Hotspur,14,1,Forward,29,33,14.0,,0.0,14,0.42,1.0,10,57,2.52,38.0
+1999-00,8,Steffen Iversen,Tottenham Hotspur,14,1,Forward,24,36,,,0.0,14,0.39,1.0,10,57,2.52,38.0
+1999-00,8,Niall Quinn,Sunderland,14,1,Forward,33,37,,,0.0,14,0.38,0.0,7,57,2.52,38.0
+1998-99,1,Jimmy Floyd Hasselbaink,Leeds United,18,1,Forward,27,36,16.0,,0.0,18,0.5,0.0,4,62,2.52,38.0
+1998-99,1,Michael Owen,Liverpool,18,1,Forward,19,30,18.0,,0.0,18,0.6,1.0,7,54,2.52,38.0
+1998-99,1,Dwight Yorke,Manchester United,18,1,Forward,27,33,12.0,,0.0,18,0.55,1.0,1,80,2.52,38.0
+1998-99,4,Nicolas Anelka,Arsenal,17,1,Forward,20,35,,,0.0,17,0.49,1.0,2,59,2.52,38.0
+1998-99,4,Andy Cole,Manchester United,17,1,Forward,27,41,15.0,,0.0,17,0.41,1.0,1,80,2.52,38.0
+1998-99,6,Hamilton Ricard,Middlesbrough,15,1,Forward,25,33,,,0.0,15,0.45,0.0,9,47,2.52,38.0
+1998-99,7,Dion Dublin,Aston Villa,14,1,Forward,30,38,18.0,,0.0,14,0.37,0.0,6,51,2.52,38.0
+1998-99,7,Robbie Fowler,Liverpool,14,1,Forward,23,25,18.0,,0.0,14,0.56,1.0,7,54,2.52,38.0
+1998-99,7,Julian Joachim,Aston Villa,14,1,Forward,24,37,,,0.0,14,0.38,0.0,6,51,2.52,38.0
+1998-99,7,Alan Shearer,Newcastle United,14,1,Forward,28,30,25.0,,0.0,14,0.47,0.0,13,40,2.52,38.0
+1997-98,1,Dion Dublin,Coventry City,18,1,Forward,29,36,13.0,,0.0,18,0.5,0.0,11,46,2.65,38.0
+1997-98,1,Michael Owen,Liverpool,18,1,Forward,18,36,,,0.0,18,0.5,1.0,3,68,2.65,38.0
+1997-98,1,Chris Sutton,Blackburn Rovers,18,1,Forward,25,35,,,0.0,18,0.51,0.0,6,57,2.65,38.0
+1997-98,4,Dennis Bergkamp,Arsenal,16,1,Forward,28,28,12.0,,0.0,16,0.57,1.0,1,52,2.65,38.0
+1997-98,4,Kevin Gallacher,Blackburn Rovers,16,1,Forward,31,33,,,0.0,16,0.48,0.0,6,57,2.65,38.0
+1997-98,4,Jimmy Floyd Hasselbaink,Leeds United,16,1,Forward,26,33,,,0.0,16,0.48,0.0,5,57,2.65,38.0
+1997-98,7,Andy Cole,Manchester United,15,1,Forward,26,33,,,0.0,15,0.45,1.0,2,73,2.65,38.0
+1997-98,7,John Hartson,West Ham United,15,1,Forward,23,32,,,0.0,15,0.47,0.0,8,56,2.65,38.0
+1997-98,9,Darren Huckerby,Coventry City,14,1,Forward,22,34,,,0.0,14,0.41,0.0,11,46,2.65,38.0
+1997-98,10,Paulo Wanchope,Derby County,13,1,Forward,21,32,,,0.0,13,0.41,0.0,9,52,2.65,38.0
+1996-97,1,Alan Shearer,Newcastle United,25,1,Forward,26,31,31.0,,0.0,25,0.81,0.0,2,73,2.55,38.0
+1996-97,2,Ian Wright,Arsenal,23,1,Forward,33,35,15.0,,0.0,23,0.66,1.0,3,62,2.55,38.0
+1996-97,3,Robbie Fowler,Liverpool,18,1,Forward,21,32,28.0,,0.0,18,0.56,1.0,4,62,2.55,38.0
+1996-97,3,Ole Gunnar Solskjær,Manchester United,18,1,Forward,24,33,,,0.0,18,0.55,1.0,1,76,2.55,38.0
+1996-97,5,Dwight Yorke,Aston Villa,17,1,Forward,25,35,17.0,,0.0,17,0.49,0.0,5,47,2.55,38.0
+1996-97,6,Les Ferdinand,Newcastle United,16,1,Forward,30,37,25.0,,0.0,16,0.43,0.0,2,73,2.55,38.0
+1996-97,6,Fabrizio Ravanelli,Middlesbrough,16,1,Forward,28,34,,,0.0,16,0.47,0.0,19,39,2.55,38.0
+1996-97,8,Dion Dublin,Coventry City,13,1,Forward,27,34,14.0,,0.0,13,0.38,0.0,17,40,2.55,38.0
+1996-97,8,Matt Le Tissier,Southampton,13,1,Attacking Midfielder,28,31,19.0,,0.0,13,0.42,0.0,16,40,2.55,38.0
+1996-97,10,Dennis Bergkamp,Arsenal,12,1,Forward,27,29,,,0.0,12,0.41,1.0,3,62,2.55,38.0
+1995-96,1,Alan Shearer,Blackburn Rovers,31,1,Forward,25,35,34.0,,0.0,31,0.89,0.0,7,61,2.6,38.0
+1995-96,2,Robbie Fowler,Liverpool,28,1,Forward,20,38,25.0,,0.0,28,0.74,1.0,3,70,2.6,38.0
+1995-96,3,Les Ferdinand,Newcastle United,25,1,Forward,28,37,24.0,,0.0,25,0.68,0.0,2,66,2.6,38.0
+1995-96,4,Dwight Yorke,Aston Villa,17,1,Forward,24,35,,,0.0,17,0.49,0.0,4,52,2.6,38.0
+1995-96,5,Andrei Kanchelskis,Everton,16,1,Midfielder,27,33,,,0.0,16,0.48,0.0,6,64,2.6,38.0
+1995-96,5,Teddy Sheringham,Tottenham Hotspur,16,1,Forward,29,38,18.0,,0.0,16,0.42,1.0,8,50,2.6,38.0
+1995-96,7,Chris Armstrong,Tottenham Hotspur,15,1,Forward,25,35,15.0,,0.0,15,0.43,1.0,8,50,2.6,38.0
+1995-96,7,Ian Wright,Arsenal,15,1,Forward,32,31,18.0,,0.0,15,0.48,1.0,5,49,2.6,38.0
+1995-96,9,Eric Cantona,Manchester United,14,1,Forward,29,30,18.0,,0.0,14,0.47,1.0,1,73,2.6,38.0
+1995-96,9,Stan Collymore,Liverpool,14,1,Forward,25,38,22.0,,0.0,14,0.37,1.0,3,70,2.6,38.0
+1995-96,9,Dion Dublin,Coventry City,14,1,Forward,26,38,,,0.0,14,0.37,0.0,16,42,2.6,38.0
+1994-95,1,Alan Shearer,Blackburn Rovers,34,1,Forward,24,42,31.0,,10.0,24,0.81,0.0,1,80,2.83,42.0
+1994-95,2,Robbie Fowler,Liverpool,25,1,Forward,19,42,,,5.0,20,0.6,1.0,4,65,2.83,42.0
+1994-95,3,Les Ferdinand,Queens Park Rangers,24,1,Forward,27,37,16.0,,0.0,24,0.65,0.0,8,44,2.83,42.0
+1994-95,4,Stan Collymore,Nottingham Forest,22,1,Forward,24,39,,,0.0,22,0.56,0.0,3,72,2.83,42.0
+1994-95,5,Andy Cole,Newcastle/Man United,21,1,Forward,23,40,34.0,,0.0,21,0.53,1.0,6,67,2.83,42.0
+1994-95,5,Jürgen Klinsmann,Tottenham Hotspur,21,1,Forward,30,41,,,0.0,21,0.51,1.0,7,66,2.83,42.0
+1994-95,7,Matt Le Tissier,Southampton,19,1,Attacking Midfielder,26,41,25.0,,0.0,19,0.46,0.0,10,61,2.83,42.0
+1994-95,8,Teddy Sheringham,Tottenham Hotspur,18,1,Forward,28,42,22.0,,0.0,18,0.43,1.0,7,66,2.83,42.0
+1994-95,8,Ian Wright,Arsenal,18,1,Forward,31,38,23.0,,0.0,18,0.47,1.0,12,52,2.83,42.0
+1994-95,10,Uwe Rösler,Manchester City,15,1,Forward,26,38,,,0.0,15,0.39,1.0,17,49,2.83,42.0
+1993-94,1,Andy Cole,Newcastle United,34,1,Forward,22,40,,,0.0,34,0.85,0.0,3,82,2.69,42.0
+1993-94,2,Alan Shearer,Blackburn Rovers,31,1,Forward,23,40,16.0,,0.0,31,0.78,0.0,2,63,2.69,42.0
+1993-94,3,Matt Le Tissier,Southampton,25,1,Attacking Midfielder,25,38,15.0,,0.0,25,0.66,0.0,18,49,2.69,42.0
+1993-94,3,Chris Sutton,Norwich City,25,1,Forward,21,41,,,0.0,25,0.61,0.0,12,36,2.69,42.0
+1993-94,5,Ian Wright,Arsenal,23,1,Forward,30,39,15.0,,0.0,23,0.59,1.0,4,58,2.69,42.0
+1993-94,6,Peter Beardsley,Newcastle United,20,1,Forward,33,35,,,0.0,20,0.57,0.0,3,82,2.69,42.0
+1993-94,7,Mark Bright,Sheffield Wednesday,19,1,Forward,31,40,,,0.0,19,0.47,0.0,7,61,2.69,42.0
+1993-94,8,Eric Cantona,Manchester United,18,1,Forward,27,34,15.0,,0.0,18,0.53,1.0,1,80,2.69,42.0
+1993-94,9,Dean Holdsworth,Wimbledon,17,1,Forward,25,42,19.0,,,0,17.0,0.4,0,10,57.0,2.69
+1993-94,9,Rod Wallace,Leeds United,17,1,Forward,24,37,,,0.0,17,0.46,0.0,5,56,2.69,42.0
+1992-93,1,Teddy Sheringham,Tottenham Hotspur,22,1,Forward,26,41,,,0.0,22,0.54,1.0,8,64,2.58,42.0
+1992-93,2,Les Ferdinand,Queens Park Rangers,20,1,Forward,26,42,,,0.0,20,0.48,0.0,5,63,2.58,42.0
+1992-93,3,Dean Holdsworth,Wimbledon,19,1,Forward,24,42,,,0.0,19,0.45,0.0,12,50,2.58,42.0
+1992-93,4,Micky Quinn,Coventry City,17,1,Forward,30,35,,,0.0,17,0.49,0.0,15,41,2.58,42.0
+1992-93,5,Alan Shearer,Blackburn Rovers,16,1,Forward,22,42,,,0.0,16,0.38,0.0,4,55,2.58,42.0
+1992-93,6,David White,Manchester City,16,1,Forward,25,42,,,0.0,16,0.38,1.0,9,57,2.58,42.0
+1992-93,7,Chris Armstrong,Crystal Palace,15,1,Forward,21,41,,,0.0,15,0.37,0.0,11,48,2.58,42.0
+1992-93,7,Eric Cantona,Manchester United,15,1,Forward,26,35,,,0.0,15,0.43,1.0,2,67,2.58,42.0
+1992-93,7,Brian Deane,Sheffield United,15,1,Forward,25,41,,,0.0,15,0.37,0.0,10,53,2.58,42.0
+1992-93,7,Mark Hughes,Manchester United,15,1,Forward,29,36,,,0.0,15,0.42,1.0,2,67,2.58,42.0
+1992-93,7,Matt Le Tissier,Southampton,15,1,Attacking Midfielder,24,40,,,0.0,15,0.38,0.0,18,54,2.58,42.0
+1992-93,7,Mark Robins,Norwich City,15,1,Forward,23,42,,,0.0,15,0.36,0.0,3,60,2.58,42.0
+1992-93,7,Ian Wright,Arsenal,15,1,Forward,29,34,,,0.0,15,0.44,1.0,10,40,2.58,42.0
