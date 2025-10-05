@@ -268,6 +268,64 @@ body {
   font-weight: 500;
 }
 
+.sample-data {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+  border: 2px solid #667eea;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.sample-data h3 {
+  color: #667eea;
+  margin-bottom: 10px;
+  font-size: 1.3em;
+}
+
+.sample-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.sample-item {
+  background: white;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-size: 0.95em;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.sample-item strong {
+  color: #667eea;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.9em;
+}
+
+.reference-result {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: white;
+  border-left: 4px solid #667eea;
+  border-radius: 8px;
+  font-size: 1.05em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.reference-result strong {
+  color: #333;
+  margin-right: 8px;
+}
+
+.reference-result .highlight {
+  color: #667eea;
+  font-weight: bold;
+  font-size: 1.15em;
+}
+
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2em;
@@ -286,6 +344,10 @@ body {
   }
   
   .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sample-grid {
     grid-template-columns: 1fr;
   }
   

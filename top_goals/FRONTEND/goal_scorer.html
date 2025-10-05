@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Goal Scorer Prediction</title>
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="header">
+      <a href="/" class="back-link">← Back to Home</a>
+      <h1>🏆 Top Goal Scorer Prediction</h1>
+    </div>
+    
+    <div class="container">
+      {% if prediction is not none %}
+        <div class="result">
+          <div class="result-label">Predicted Goals This Season</div>
+          <div class="result-value">{{ prediction }} goals</div>
+        </div>
+      {% endif %}
+      
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+      
+      <div class="sample-data">
+        <h3>📊 Sample Data Example</h3>
+        <p style="margin-bottom: 12px; color: #666;">Use these reference values to try the prediction:</p>
+        <div class="sample-grid">
+          <div class="sample-item"><strong>Position:</strong> Forward</div>
+          <div class="sample-item"><strong>Age:</strong> 27</div>
+          <div class="sample-item"><strong>Appearances:</strong> 35</div>
+          <div class="sample-item"><strong>Minutes Played:</strong> 3000</div>
+          <div class="sample-item"><strong>Goals Prev Season:</strong> 18</div>
+          <div class="sample-item"><strong>Assists:</strong> 5</div>
+          <div class="sample-item"><strong>Goals Per 90:</strong> 0.54</div>
+          <div class="sample-item"><strong>League Goals Per Match:</strong> 2.8</div>
+          <div class="sample-item"><strong>Goals Last 3 Seasons Avg:</strong> 16</div>
+        </div>
+        <div class="reference-result">
+          <strong>Expected Result:</strong> This sample data should predict approximately <span class="highlight">18 goals</span>
+        </div>
+      </div>
+      
+      <div class="prediction-form">
+        <form method="post">
+          <div class="form-grid">
+            {% for feat in feature_names %}
+              <div class="form-group">
+                <label for="{{ feat }}">{{ feat.replace('_',' ').title() }}</label>
+                {% if feat == 'Position' %}
+                  <select name="{{ feat }}" id="{{ feat }}" required>
+                    <option value="">Select Position</option>
+                    <option value="Forward">Forward</option>
+                    <option value="Winger">Winger</option>
+                    <option value="Attacking Midfielder">Attacking Midfielder</option>
+                    <option value="Midfielder">Midfielder</option>
+                  </select>
+                {% else %}
+                  <input type="number" step="any" name="{{ feat }}" id="{{ feat }}" placeholder="Enter value" required>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Predict Goals</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
