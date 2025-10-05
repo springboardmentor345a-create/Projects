@@ -2,7 +2,7 @@
 
 ## STREAMLIT APP DEPLOYED LINK
 ```bash
-https://eplapp-kvwmq9fxwayc47idymcaub.streamlit.app/
+https://eplapp-hsz6wty4ealwyajj5awpfq.streamlit.app/
 ```
 
 This Streamlit app allows you to predict:  
