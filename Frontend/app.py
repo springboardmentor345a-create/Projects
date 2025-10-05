@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(__file__)  # this ensures path relative to app.py
 with open(os.path.join(BASE_DIR, "League_winner_model.pkl"), "rb") as f:
     winner_model = pickle.load(f)
 
-with open(os.path.join(BASE_DIR, "Points_model.pkl"), "rb") as f:
+with open(os.path.join(BASE_DIR, "Points_model2.pkl"), "rb") as f:
     points_model = pickle.load(f)
 
 with open(os.path.join(BASE_DIR, "scaler.pkl"), "rb") as f:
@@ -230,17 +230,13 @@ def predict_winner(played, won, drawn, lost, gf, ga):
     prob = winner_model.predict_proba(df_scaled)[0][1]*100
     return pred, prob, gd, points
 
-def predict_points(gf, ga, team_cols=None):
+def predict_points(gf, ga):
     gd = gf - ga
     df = pd.DataFrame({
         'gf':[gf],
         'ga':[ga],
         'gd':[gd]
     })
-    
-    if team_cols is not None:
-        for col in team_cols:
-            df[col] = 0
     
     pred_points = points_model.predict(df)[0]
     return pred_points, gd
@@ -394,8 +390,7 @@ elif st.session_state.page == "Points Prediction":
         st.markdown("<br>", unsafe_allow_html=True)
         
         if st.button("🎯 Predict Total Points", key="points_btn", use_container_width=True):
-            team_cols = points_model.feature_names_in_ if hasattr(points_model, "feature_names_in_") else None
-            pred_points, gd_calc = predict_points(gf, ga, team_cols)
+            pred_points, gd_calc = predict_points(gf, ga)
             
             st.markdown(f"""
             <div class="result-card">
