@@ -70,52 +70,10 @@ def load_assets():
         st.error(f"FATAL ERROR: {e}. Ensure all .pkl and .csv files are in the same directory as app.py.")
         return None, None, None
 
-# --- LIVE DATA ENGINE ---
-@st.cache_data(ttl=3600)
-def fetch_live_epl_table():
-    """Fetches and parses the live EPL table from ESPN in a robust way."""
-    try:
-        url = "https://www.espn.com/soccer/table/_/league/ENG.1"
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        tables = pd.read_html(response.content)
-        
-        if len(tables) < 2: return None
-        
-        df_table = pd.concat([tables[0], tables[1]])
-        team_col_name = df_table.columns[0]
-        
-        def clean_name(raw_name):
-            for i, char in enumerate(raw_name):
-                if char.isalpha(): return raw_name[i:]
-            return raw_name
-            
-        df_table['Team'] = df_table[team_col_name].apply(clean_name)
-        df_table.reset_index(drop=True, inplace=True)
-        
-        name_corrections = {
-            "Manchester United": "Man United", "Manchester City": "Man City", 
-            "Tottenham Hotspur": "Tottenham", "Wolverhampton Wanderers": "Wolverhampton", 
-            "Nottingham Forest": "Nottingham", "West Ham United": "West Ham", 
-            "Newcastle United": "Newcastle", "Brighton & Hove Albion": "Brighton"
-        }
-        
-        final_rank_map = {}
-        for idx, row in df_table.iterrows():
-            scraped_name = row['Team']
-            corrected_name = name_corrections.get(scraped_name, scraped_name)
-            if corrected_name in ALLOWED_TEAMS:
-                 final_rank_map[corrected_name] = idx + 1
-            
-        if len(final_rank_map) < 18: 
-            return None
-        return final_rank_map
-    except Exception:
-        return None
+# --- REMOVED THE fetch_live_epl_table FUNCTION ---
 
-# --- PREDICTION LOGIC ---
-def get_and_predict(df, catboost_assets, home_team, away_team, strength_map, live_rank_map):
+# --- PREDICTION LOGIC (MODIFIED) ---
+def get_and_predict(df, catboost_assets, home_team, away_team, strength_map, home_rank, away_rank):
     relevant_matches = df[((df['HomeTeam'] == home_team) & (df['AwayTeam'] == away_team))]
     if relevant_matches.empty:
         return None, None, None, True 
@@ -132,22 +90,13 @@ def get_and_predict(df, catboost_assets, home_team, away_team, strength_map, liv
     home_strength = strength_map.get(home_team, 1500)
     away_strength = strength_map.get(away_team, 1500)
     
-    home_rank_source, away_rank_source = "Historical", "Historical"
-    home_rank, away_rank = most_recent_encounter['HomeTeam_League_Rank'], most_recent_encounter['AwayTeam_League_Rank']
-
-    if live_rank_map:
-        if home_team in live_rank_map:
-            home_rank = live_rank_map[home_team]
-            home_rank_source = "Live"
-        if away_team in live_rank_map:
-            away_rank = live_rank_map[away_team]
-            away_rank_source = "Live"
-    
-    st.success(f"Using Ranks: {home_team} (Rank {home_rank} - {home_rank_source}), {away_team} (Rank {away_rank} - {away_rank_source})")
+    # --- MODIFIED: Simplified the rank logic to use user input directly ---
+    st.success(f"Using Ranks: {home_team} (Rank {home_rank} - Live), {away_team} (Rank {away_rank} - Live)")
 
     features_dict = {
         'HomeTeam': home_team, 'AwayTeam': away_team, 'Season': '2023-2024',
-        'HomeTeam_League_Rank': home_rank, 'AwayTeam_League_Rank': away_rank,
+        'HomeTeam_League_Rank': home_rank, 
+        'AwayTeam_League_Rank': away_rank,
         'HomeTeam_Strength': home_strength, 'AwayTeam_Strength': away_strength,
         **h2h_features, **odds_features, **form_features, **raw_stats_features
     }
@@ -171,15 +120,14 @@ def predict_top_scorer(assets, player_data):
     prediction = model.predict(features_df)[0]
     return prediction
 
-# --- UI Functions ---
+# --- UI Functions (No Changes Here) ---
 def display_professional_results(home_team, away_team, home_p, draw_p, away_p):
+    # ... (code is unchanged)
     home_logo_path = TEAM_LOGOS.get(home_team)
     away_logo_path = TEAM_LOGOS.get(away_team)
     home_svg = render_png_as_base64(home_logo_path)
     away_svg = render_png_as_base64(away_logo_path)
-    
     st.markdown("""<style> .team { font-size: 1.5em; font-weight: bold; } .team-logo { width: 80px; height: auto; } .prob-bar-container { width: 100%; display: flex; height: 40px; border-radius: 10px; overflow: hidden; font-size: 1em; color: white; font-weight: bold; } .prob-bar-segment { display: flex; align-items: center; justify-content: center; } .home-win { background-color: #4CAF50; } .draw { background-color: #FFC107; } .away-win { background-color: #F44336; } </style>""", unsafe_allow_html=True)
-    
     c1, c2, c3 = st.columns([2, 1, 2])
     with c1:
         if home_svg: st.markdown(f'<div style="text-align: right;"><img src="{home_svg}" class="team-logo"></div>', unsafe_allow_html=True)
@@ -188,21 +136,16 @@ def display_professional_results(home_team, away_team, home_p, draw_p, away_p):
     with c3:
         if away_svg: st.markdown(f'<div style="text-align: left;"><img src="{away_svg}" class="team-logo"></div>', unsafe_allow_html=True)
         st.markdown(f'<p class="team" style="text-align: left;">{away_team}</p>', unsafe_allow_html=True)
-
     st.subheader("Win Probability", anchor=False)
     st.markdown(f"""<div class="prob-bar-container"> <div class="prob-bar-segment home-win" style="width: {home_p:.2%};">{home_p:.1%}</div> <div class="prob-bar-segment draw" style="width: {draw_p:.2%};">{draw_p:.1%}</div> <div class="prob-bar-segment away-win" style="width: {away_p:.2%};">{away_p:.1%}</div> </div>""", unsafe_allow_html=True)
     outcomes = {'Home Win': home_p, 'Draw': draw_p, 'Away Win': away_p}; final_call = max(outcomes, key=outcomes.get)
     st.divider()
-    
     st.subheader('Final Verdict', anchor=False)
-    
     winner_team = home_team if final_call == 'Home Win' else away_team if final_call == 'Away Win' else None
-    
     if winner_team:
         st.snow()
         winner_logo_path = TEAM_LOGOS.get(winner_team)
         winner_svg = render_png_as_base64(winner_logo_path)
-        
         _, center_col, _ = st.columns([1, 1, 1])
         with center_col:
             if winner_svg:
@@ -215,17 +158,16 @@ def display_professional_results(home_team, away_team, home_p, draw_p, away_p):
             st.markdown(f"<h2 style='text-align: center; color: #D39C00;'>DRAW</h2>", unsafe_allow_html=True)
 
 def predict_with_strength_only(strength_map, home_team, away_team):
+    # ... (code is unchanged)
     st.warning("⚠️ No historical H2H data found. A simplified prediction will be made based on the teams' inherent Strength Rating.")
     home_strength = strength_map.get(home_team, 1500)
     away_strength = strength_map.get(away_team, 1500)
     strength_difference = abs(home_strength - away_strength)
     DRAW_THRESHOLD = 75 
     st.subheader('Final Verdict (Strength-Based)', anchor=False)
-    
     winner = None
     if strength_difference > DRAW_THRESHOLD:
         winner = home_team if home_strength > away_strength else away_team
-
     if winner:
         st.snow()
         _, center_col, _ = st.columns([1, 1, 1])
@@ -251,13 +193,12 @@ if 'view' not in st.session_state:
 
 with st.spinner('Loading AI Expert Systems...'):
     models, df_final, strength_ratings = load_assets()
-    live_ranks = fetch_live_epl_table()
+    # --- REMOVED: live_ranks = fetch_live_epl_table() ---
 
 if models:
     if st.session_state.view == 'menu':
-        
+        # ... (code is unchanged)
         st.header("Select an Analysis Tool")
-        
         c1, c2 = st.columns(2)
         with c1:
             with st.container(border=True):
@@ -280,28 +221,32 @@ if models:
             st.session_state.view = 'menu'
             st.rerun()
         
-        st.info("This tool predicts the outcome of an upcoming match using a powerful CatBoost model.")
+        st.info("This tool predicts the outcome of an upcoming match. Please select the teams and enter their current league rank.")
         
         with st.container(border=True):
             c1, c2 = st.columns(2)
             home_team = c1.selectbox('Home Team', options=ALLOWED_TEAMS, index=13)
             away_team = c2.selectbox('Away Team', options=ALLOWED_TEAMS, index=11)
+
+            # --- ADDED: User input for ranks ---
+            home_rank = c1.number_input("Enter Home Team's Current Rank", min_value=1, max_value=20, value=10)
+            away_rank = c2.number_input("Enter Away Team's Current Rank", min_value=1, max_value=20, value=10)
         
         if st.button('🔮 Predict Match Outcome', use_container_width=True, type="primary"):
             if home_team == away_team: st.warning("Please select two different teams.")
             else:
                 with st.spinner("Running match simulation..."):
-                    home_p, draw_p, away_p, no_h2h = get_and_predict(df_final, models['match_winner'], home_team, away_team, strength_ratings, live_ranks)
+                    # --- MODIFIED: Updated function call ---
+                    home_p, draw_p, away_p, no_h2h = get_and_predict(df_final, models['match_winner'], home_team, away_team, strength_ratings, home_rank, away_rank)
                 if no_h2h: predict_with_strength_only(strength_ratings, home_team, away_team)
                 elif home_p is not None: display_professional_results(home_team, away_team, home_p, draw_p, away_p)
 
     elif st.session_state.view == 'goal_scorer':
+        # ... (code is unchanged)
         st.header("Top Goal Scorer Estimator")
-        
         if st.button("⬅️ Back to Menu"):
             st.session_state.view = 'menu'
             st.rerun()
-        
         with st.expander("💡 How to Use This Tool", expanded=True):
             st.markdown("""
             This tool estimates a player's final goal tally for a season based on their **current, in-season performance stats**. Our AI has learned that the single most powerful predictor is a player's scoring efficiency.
@@ -318,7 +263,6 @@ if models:
             **Example:** If a player has scored **10 goals** in **1200 minutes** of play, their Goals per 90 would be:
             `(10 / 1200) * 90 = 0.75`
             """)
-            
         with st.form("scorer_form"):
             st.subheader("Enter Player's Current In-Season Stats")
             c1, c2 = st.columns(2)
@@ -330,7 +274,6 @@ if models:
             appearances = c2.number_input("Appearances So Far This Season", min_value=1, value=15)
             assists = c1.number_input("Assists So Far This Season", min_value=0, value=5)
             goals_per_90 = c2.number_input("Goals per 90 Mins So Far", min_value=0.0, value=0.75, format="%.2f", help="Calculated as (Total Goals / Total Minutes) * 90")
-            
             submitted = st.form_submit_button("Estimate Final Goal Tally", type="primary", use_container_width=True)
             if submitted:
                 player_data = {
@@ -340,7 +283,6 @@ if models:
                 }
                 with st.spinner("Consulting the Goal Scorer AI..."):
                     predicted_goals = predict_top_scorer(models['goal_scorer'], player_data)
-                
                 st.success("Estimation Complete!")
                 st.metric(label="AI's Estimated Final Goal Tally", value=f"{predicted_goals:.0f} goals")
 else:
@@ -349,4 +291,3 @@ else:
 # --- Footer ---
 st.divider()
 st.markdown("<p style='text-align: center;'>Developed by Arvind K N.</p>", unsafe_allow_html=True)
-
