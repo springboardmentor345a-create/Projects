@@ -226,7 +226,7 @@ if models:
             st.rerun()
         
         st.info("This tool predicts the outcome of an upcoming match. Please select the teams and enter their current league rank.")
-        st.info("To get the live league rank click the link [premier_lauge_live](https://www.premierleague.com/en/tables)")
+        st.info("To get the live league rank click the link [premier_league_live](https://www.premierleague.com/en/tables)")
         
         with st.container(border=True):
             c1, c2 = st.columns(2)
