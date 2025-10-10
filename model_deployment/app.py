@@ -1,17 +1,10 @@
 import streamlit as st
 import joblib
 import numpy as np
-import pandas as pd
-import os 
-from sklearn.linear_model import LogisticRegression
-from sklearn.tree import DecisionTreeClassifier    
+import pandas as pd    
 
-teams = [
-    "Arsenal", "Aston Villa","Bournemouth","Brentford", "Brighton", "Burnley","Chelsea","Crystal Palace","Everton","Fulham","Leeds","Liverpool","Luton", "Man City", "Man United","Newcastle","Nott'm For","Sunderland","Tottenham","West Ham","Wolves"
-]
-
-goal_model = joblib.load("Top Goal scorer/Top Goal_model.pkl")
-league_model = joblib.load("League Winner/league_model_winner.pkl")
+goal_model = joblib.load("Top_Goal_Scorer/BACKEND/Random_forest_model.pkl")
+league_model = joblib.load("League_Winner/BACKEND/league_model.pkl")
 st.title("Infosys Springboard Internship Project")
 
 col1, col2 = st.columns(2)
