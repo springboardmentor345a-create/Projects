@@ -1,0 +1,1 @@
+{"numeric_cols": ["played", "won", "drawn", "lost", "gf", "ga", "gd", "points"], "use_team_encoded": false, "feature_order": ["played", "won", "drawn", "lost", "gf", "ga", "gd", "points"]}
