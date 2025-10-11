@@ -228,30 +228,6 @@ def inject_custom_css():
 inject_custom_css()
 
 # ------------------------------------------------------
-# UTILITY FUNCTIONS
-# ------------------------------------------------------
-
-def show_football_transition():
-    """Displays a full-screen football flying animation for 1 second."""
-    transition_placeholder = st.empty()
-    transition_placeholder.markdown("""
-    <div class='football-transition'>
-        <div class='football-flying'>⚽</div>
-    </div>
-    """, unsafe_allow_html=True)
-    time.sleep(1.0)
-    transition_placeholder.empty()
-
-def js_redirect(url: str):
-    """Generates JavaScript to redirect the user to a new URL."""
-    redirect_script = f"""
-        <script type="text/javascript">
-            window.top.location.href = '{url}';
-        </script>
-    """
-    st.markdown(redirect_script, unsafe_allow_html=True)
-
-# ------------------------------------------------------
 # MAIN PAGE
 # ------------------------------------------------------
 
@@ -279,8 +255,22 @@ with col1:
     """, unsafe_allow_html=True)
     
     if st.button("🚀 Open League Winner & Points", key="app1", use_container_width=True):
-        show_football_transition()
-        js_redirect("https://sai-karthik-gardas-epl.streamlit.app")
+        st.markdown("""
+            <div class='football-transition'>
+                <div class='football-flying'>⚽</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        redirect_script = """
+            <script type="text/javascript">
+                setTimeout(function() {
+                    window.top.location.href = 'https://sai-karthik-gardas-epl.streamlit.app';
+                }, 1000);
+            </script>
+        """
+        st.markdown(redirect_script, unsafe_allow_html=True)
+        time.sleep(0.1)
+
 
 # Card 2: Top Goals & Top Assists
 with col2:
@@ -295,10 +285,24 @@ with col2:
     """, unsafe_allow_html=True)
     
     if st.button("🚀 Open Top Goals & Assists", key="app2", use_container_width=True):
-        show_football_transition()
-        js_redirect("https://epl-project-top-assist-and-goals.streamlit.app")
+        st.markdown("""
+            <div class='football-transition'>
+                <div class='football-flying'>⚽</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        redirect_script = """
+            <script type="text/javascript">
+                setTimeout(function() {
+                    window.top.location.href = 'https://epl-project-top-assist-and-goals.streamlit.app';
+                }, 1000);
+            </script>
+        """
+        st.markdown(redirect_script, unsafe_allow_html=True)
+        time.sleep(0.1)
 
-# Card 3: Match Winner (placeholder)
+
+# Card 3: Match Winner
 with col3:
     st.markdown("""
     <div class='prediction-card'>
@@ -311,8 +315,21 @@ with col3:
     """, unsafe_allow_html=True)
     
     if st.button("🚀 Open Match Winner", key="app3", use_container_width=True):
-        show_football_transition()
-        js_redirect("https://match-winner-epl-infosys.streamlit.app/") # Replace with your actual URL when ready
+        st.markdown("""
+            <div class='football-transition'>
+                <div class='football-flying'>⚽</div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        redirect_script = """
+            <script type="text/javascript">
+                setTimeout(function() {
+                    window.top.location.href = 'https://match-winner-epl-infosys.streamlit.app/';
+                }, 1000);
+            </script>
+        """
+        st.markdown(redirect_script, unsafe_allow_html=True)
+        time.sleep(0.1)
 
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<p class='caption' style='text-align:center;color:rgba(255,255,255,.6);font-size:.95rem;margin-top:2rem;'>🏆 Powered by Machine Learning & Advanced Analytics</p>", unsafe_allow_html=True)
