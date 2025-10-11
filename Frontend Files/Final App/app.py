@@ -1,5 +1,4 @@
 import streamlit as st
-import time
 
 # ------------------------------------------------------
 # PAGE CONFIG
@@ -10,6 +9,37 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
+
+# ------------------------------------------------------
+# REDIRECT LOGIC - Checks session state on every run
+# ------------------------------------------------------
+if 'redirect_url' in st.session_state:
+    url = st.session_state.redirect_url
+    del st.session_state.redirect_url  # Clear the state to prevent loops
+    
+    # Display the animation and inject the JavaScript to redirect
+    st.markdown(f"""
+        <div class="football-transition" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 12, 41, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+            <div class="football-flying" style="font-size: 6rem; filter: drop-shadow(0 0 30px rgba(102,126,234,0.8)); animation: flyAcross 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;">⚽</div>
+        </div>
+        
+        <a id="redirect-link" href="{url}" target="_top" style="display:none;"></a>
+        
+        <script type="text/javascript">
+            setTimeout(function() {{
+                document.getElementById('redirect-link').click();
+            }}, 900); // Slightly less than animation to be safe
+        </script>
+
+        <style>
+            @keyframes flyAcross {{
+                0% {{ transform: translateX(-150vw) rotate(0deg) scale(0.5); opacity: 0; }}
+                50% {{ transform: translateX(0) rotate(720deg) scale(1.5); opacity: 1; }}
+                100% {{ transform: translateX(150vw) rotate(1440deg) scale(0.5); opacity: 0; }}
+            }}
+        </style>
+    """, unsafe_allow_html=True)
+    st.stop() # Stop the rest of the script from running
 
 # ------------------------------------------------------
 # CUSTOM CSS - MATCHES YOUR DESIGN
@@ -182,55 +212,19 @@ def inject_custom_css():
         background:linear-gradient(135deg,#764ba2 0%,#667eea 100%);
     }
 
-    .football-transition {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(15, 12, 41, 0.95);
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .football-flying {
-        font-size: 6rem;
-        animation: flyAcross 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-        filter: drop-shadow(0 0 30px rgba(102,126,234,0.8));
-    }
-
-    @keyframes flyAcross {
-        0% {
-            transform: translateX(-150vw) rotate(0deg) scale(0.5);
-            opacity: 0;
-        }
-        50% {
-            transform: translateX(0) rotate(720deg) scale(1.5);
-            opacity: 1;
-        }
-        100% {
-            transform: translateX(150vw) rotate(1440deg) scale(0.5);
-            opacity: 0;
-        }
-    }
-
     hr{
         border:none;
         height:2px;
         background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);
         margin:4rem 0;
     }
-
     </style>""", unsafe_allow_html=True)
 
 inject_custom_css()
 
 # ------------------------------------------------------
-# MAIN PAGE
+# MAIN PAGE RENDER
 # ------------------------------------------------------
-
 st.markdown("""
 <div class='header-container'>
     <div class='football-icon'>⚽</div>
@@ -255,21 +249,8 @@ with col1:
     """, unsafe_allow_html=True)
     
     if st.button("🚀 Open League Winner & Points", key="app1", use_container_width=True):
-        st.markdown("""
-            <div class='football-transition'>
-                <div class='football-flying'>⚽</div>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        redirect_script = """
-            <script type="text/javascript">
-                setTimeout(function() {
-                    window.top.location.href = 'https://sai-karthik-gardas-epl.streamlit.app';
-                }, 1000);
-            </script>
-        """
-        st.markdown(redirect_script, unsafe_allow_html=True)
-        time.sleep(0.1)
+        st.session_state.redirect_url = "https://sai-karthik-gardas-epl.streamlit.app"
+        st.rerun()
 
 
 # Card 2: Top Goals & Top Assists
@@ -285,21 +266,8 @@ with col2:
     """, unsafe_allow_html=True)
     
     if st.button("🚀 Open Top Goals & Assists", key="app2", use_container_width=True):
-        st.markdown("""
-            <div class='football-transition'>
-                <div class='football-flying'>⚽</div>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        redirect_script = """
-            <script type="text/javascript">
-                setTimeout(function() {
-                    window.top.location.href = 'https://epl-project-top-assist-and-goals.streamlit.app';
-                }, 1000);
-            </script>
-        """
-        st.markdown(redirect_script, unsafe_allow_html=True)
-        time.sleep(0.1)
+        st.session_state.redirect_url = "https://epl-project-top-assist-and-goals.streamlit.app"
+        st.rerun()
 
 
 # Card 3: Match Winner
@@ -315,21 +283,8 @@ with col3:
     """, unsafe_allow_html=True)
     
     if st.button("🚀 Open Match Winner", key="app3", use_container_width=True):
-        st.markdown("""
-            <div class='football-transition'>
-                <div class='football-flying'>⚽</div>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        redirect_script = """
-            <script type="text/javascript">
-                setTimeout(function() {
-                    window.top.location.href = 'https://match-winner-epl-infosys.streamlit.app/';
-                }, 1000);
-            </script>
-        """
-        st.markdown(redirect_script, unsafe_allow_html=True)
-        time.sleep(0.1)
+        st.session_state.redirect_url = "https://match-winner-epl-infosys.streamlit.app/"
+        st.rerun()
 
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<p class='caption' style='text-align:center;color:rgba(255,255,255,.6);font-size:.95rem;margin-top:2rem;'>🏆 Powered by Machine Learning & Advanced Analytics</p>", unsafe_allow_html=True)
