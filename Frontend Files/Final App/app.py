@@ -246,7 +246,7 @@ def js_redirect(url: str):
     """Generates JavaScript to redirect the user to a new URL."""
     redirect_script = f"""
         <script type="text/javascript">
-            window.location.href = '{url}';
+            window.top.location.href = '{url}';
         </script>
     """
     st.markdown(redirect_script, unsafe_allow_html=True)
@@ -316,3 +316,4 @@ with col3:
 
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<p class='caption' style='text-align:center;color:rgba(255,255,255,.6);font-size:.95rem;margin-top:2rem;'>🏆 Powered by Machine Learning & Advanced Analytics</p>", unsafe_allow_html=True)
+
