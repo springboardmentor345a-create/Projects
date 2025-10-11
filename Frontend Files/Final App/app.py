@@ -301,7 +301,7 @@ with col3:
     
     if st.button("🚀 Open Match Winner", key="app3", use_container_width=True):
         show_football_transition()
-        st.markdown('<meta http-equiv="refresh" content="0;url=https://match-winner-epl-infosys.streamlit.app/">', unsafe_allow_html=True)
+        st.markdown('<meta http-equiv="refresh" content="0;url=https://placeholder-link.com">', unsafe_allow_html=True)
 
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<p class='caption' style='text-align:center;color:rgba(255,255,255,.6);font-size:.95rem;margin-top:2rem;'>🏆 Powered by Machine Learning & Advanced Analytics</p>", unsafe_allow_html=True)
