@@ -4,12 +4,16 @@ import numpy as np
 import pandas as pd
 
 # Load your model (make sure the path is correct)
-goal_model = joblib.load("Random_model_forest.pkl")
+goal_model = joblib.load("Random_forest_model.pkl")
+
+st.title("EPL PREDICTOR🥎")
+st.title("Top Goal Scorer Prediction🏆")
+
+st.markdown("Enter season-end team statistics to predict the probability of winning the league.")
 
 st.title("Infosys Springboard Internship Project")
 
 # Header and description for Top Goal Scorer only
-st.header("TopGoalScorerPrediction")
 st.markdown("Enter player statistics to predict the total goals scored in the season.")
 
 # Input columns
@@ -41,8 +45,14 @@ st.markdown("---")
 if st.button("Predict Goals", type="primary", use_container_width=True):
     input_data = np.array([[Age, Appearances, Goals_prev_season, Goals_per_90,
                             Big_6_Club_Feature, League_Goals_per_Match,
-                            *position_encoded]])
+                            *position_encoded]], dtype=float)
+
+    # Debug prints to check input data and prediction
+    st.write("Input data:", input_data)
+
     prediction = goal_model.predict(input_data)
+
+    st.write("Raw prediction:", prediction)
 
     st.markdown(
         f"""
